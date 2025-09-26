@@ -1,0 +1,284 @@
+{
+  "schemes": [
+    {
+      "id": "pmkisan",
+      "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+      "category": "Direct Income Support",
+      "description": "Direct income support of ₹6,000 per year to all farmer families in three equal installments of ₹2,000 each, every four months.",
+      "benefits": {
+        "amount": 6000,
+        "frequency": "Annual",
+        "installments": 3,
+        "installment_amount": 2000
+      },
+      "eligibility": {
+        "land_holding": "All small and marginal farmer families",
+        "documents_required": ["Land ownership certificate", "Aadhaar card", "Bank account details"],
+        "exclusions": ["Institutional landholders", "Farmer families with income tax liability"]
+      },
+      "application_process": {
+        "mode": "Online/Offline",
+        "portal": "pmkisan.gov.in",
+        "contact": "Village Revenue Officer or Agricultural Extension Officer"
+      },
+      "subsidy_type": "fixed",
+      "subsidy_amount": 6000,
+      "active": true,
+      "launched_year": 2019
+    },
+    {
+      "id": "pmfby",
+      "name": "PMFBY (Pradhan Mantri Fasal Bima Yojana)",
+      "category": "Crop Insurance",
+      "description": "Comprehensive crop insurance scheme providing financial support to farmers suffering crop loss/damage arising out of unforeseen events.",
+      "benefits": {
+        "coverage": "Complete crop cycle from pre-sowing to post-harvest",
+        "premium_rates": {
+          "kharif": "2% of Sum Insured",
+          "rabi": "1.5% of Sum Insured",
+          "annual_commercial": "5% of Sum Insured"
+        },
+        "government_subsidy": "Remaining premium paid by Central and State Government"
+      },
+      "eligibility": {
+        "crops": "All food crops, oilseeds, annual commercial/horticultural crops",
+        "farmers": "All farmers including sharecroppers and tenant farmers",
+        "documents_required": ["Land records", "Sowing certificate", "Bank account details", "Aadhaar card"]
+      },
+      "coverage_risks": [
+        "Drought, Flood, Hailstorm, Cyclone, Fire, Lightning, Storm, Landslide",
+        "Post-harvest losses (drying period up to 14 days)",
+        "Localized calamities (hailstorm, landslide, inundation)"
+      ],
+      "application_process": {
+        "mode": "Online/Offline",
+        "portal": "pmfby.gov.in",
+        "deadline": "Before sowing/planting season",
+        "contact": "Bank branches, CSCs, Insurance companies"
+      },
+      "subsidy_type": "percentage",
+      "subsidy_amount": 2.0,
+      "active": true,
+      "launched_year": 2016
+    },
+    {
+      "id": "kcc",
+      "name": "KCC (Kisan Credit Card)",
+      "category": "Credit Facility",
+      "description": "Credit facility for farmers to meet their production credit needs for cultivation and allied activities.",
+      "benefits": {
+        "credit_limit": "Based on cropping pattern and land holding",
+        "interest_rate": "7% per annum (with 3% subvention)",
+        "effective_rate": "4% per annum (for prompt repayment)",
+        "additional_benefits": ["Personal accident insurance", "Asset insurance"]
+      },
+      "eligibility": {
+        "categories": ["Farmers (individual/joint)", "Tenant farmers", "Oral lessees", "SHG members", "JLGs"],
+        "documents_required": ["Land documents", "Identity proof", "Address proof", "Income certificate"],
+        "land_holding": "No minimum or maximum limit"
+      },
+      "features": [
+        "Flexible repayment schedule aligned with harvesting and marketing",
+        "Conversion facility for term loan",
+        "Interest subvention for prompt repayment",
+        "Simplified documentation and faster processing"
+      ],
+      "application_process": {
+        "mode": "Offline",
+        "contact": "Nearest bank branch",
+        "processing_time": "15-30 days"
+      },
+      "subsidy_type": "interest",
+      "subsidy_amount": 3.0,
+      "active": true,
+      "launched_year": 1998
+    },
+    {
+      "id": "soil_health_card",
+      "name": "Soil Health Card Scheme",
+      "category": "Soil Management",
+      "description": "Government scheme to issue Soil Health Cards to farmers every two years to provide information on nutrient status of their soil.",
+      "benefits": {
+        "service": "Free soil testing",
+        "frequency": "Every 2-3 years",
+        "parameters_tested": ["pH", "Organic Carbon", "Available Nitrogen", "Available Phosphorus", "Available Potassium", "Sulphur", "Micronutrients"]
+      },
+      "eligibility": {
+        "farmers": "All farmers with agricultural land",
+        "documents_required": ["Land ownership documents", "Aadhaar card"],
+        "cost": "Completely free of cost"
+      },
+      "services_provided": [
+        "Soil sample collection from farmer's field",
+        "Laboratory testing of soil samples",
+        "Soil Health Card with nutrient status",
+        "Fertilizer recommendations for next crop cycle",
+        "Soil improvement suggestions"
+      ],
+      "application_process": {
+        "mode": "Offline",
+        "contact": "Village Level Worker, Agricultural Extension Officer, or Soil Testing Laboratory",
+        "sample_collection": "From farmer's field by trained personnel"
+      },
+      "subsidy_type": "service",
+      "subsidy_amount": 0,
+      "active": true,
+      "launched_year": 2015
+    },
+    {
+      "id": "pkvy",
+      "name": "PKVY (Paramparagat Krishi Vikas Yojana)",
+      "category": "Organic Farming",
+      "description": "Scheme to promote organic farming through cluster approach and organic certification.",
+      "benefits": {
+        "financial_support": "₹50,000 per hectare over 3 years",
+        "year_wise_support": {
+          "year_1": "₹31,000/ha",
+          "year_2": "₹18,000/ha", 
+          "year_3": "₹8,000/ha"
+        },
+        "additional_support": "₹3,000/ha for certification and ₹2,000/ha for residue analysis"
+      },
+      "eligibility": {
+        "formation": "Cluster of 50 or more farmers (minimum 50 hectares)",
+        "group_size": "20 farmers minimum per group",
+        "documents_required": ["Group formation certificate", "Land documents", "Bank account details"],
+        "commitment": "3-year commitment to organic farming practices"
+      },
+      "components": [
+        "Cluster formation and capacity building",
+        "Quality seed production",
+        "Organic inputs like bio-fertilizers and bio-pesticides",
+        "Certification support",
+        "Marketing support"
+      ],
+      "application_process": {
+        "mode": "Group application through State Agriculture Department",
+        "contact": "District Collector or State Agriculture Mission",
+        "selection": "Through State Level Sanctioning Committee"
+      },
+      "subsidy_type": "area_based",
+      "subsidy_amount": 50000,
+      "active": true,
+      "launched_year": 2015
+    },
+    {
+      "id": "sub_mission_seeds",
+      "name": "Sub Mission on Seeds and Planting Material",
+      "category": "Seed Production",
+      "description": "Comprehensive program for development of seed production and distribution system for quality seeds.",
+      "benefits": {
+        "seed_subsidy": "50% on seeds of high yielding varieties",
+        "infrastructure_support": "Financial assistance for seed storage and processing units",
+        "certification_support": "Support for seed certification process"
+      },
+      "eligibility": {
+        "beneficiaries": ["Individual farmers", "FPOs", "SHGs", "Private seed companies"],
+        "documents_required": ["Registration certificate", "Land documents", "Technical qualification certificate"],
+        "area_requirement": "Minimum area as per crop and category"
+      },
+      "components": [
+        "Seed production programme",
+        "Seed certification",
+        "Quality control",
+        "Infrastructure development",
+        "Human resource development"
+      ],
+      "application_process": {
+        "mode": "Online/Offline through State Seed Corporations",
+        "contact": "State Seed Corporation or Directorate of Agriculture",
+        "timeline": "Before sowing season"
+      },
+      "subsidy_type": "percentage",
+      "subsidy_amount": 50.0,
+      "active": true,
+      "launched_year": 2014
+    },
+    {
+      "id": "nam",
+      "name": "National Agriculture Market (e-NAM)",
+      "category": "Market Access",
+      "description": "Pan-India electronic trading portal which networks existing APMC mandis to create a unified national market for agricultural commodities.",
+      "benefits": {
+        "services": "Online trading platform for better price discovery",
+        "transparency": "Real-time price information across markets",
+        "payment": "Online payment and settlement system",
+        "quality_assurance": "Quality assaying facilities"
+      },
+      "eligibility": {
+        "registration": "Free registration for farmers and traders",
+        "documents_required": ["Aadhaar card", "Mobile number", "Bank account details"],
+        "participation": "Voluntary participation in online auctions"
+      },
+      "features": [
+        "Single license valid across all integrated markets",
+        "Unified market fee structure", 
+        "Real-time price discovery",
+        "Direct payment to farmers",
+        "Quality-based pricing"
+      ],
+      "application_process": {
+        "mode": "Online registration",
+        "portal": "enam.gov.in",
+        "mobile_app": "eNAM mobile app available",
+        "contact": "APMC Secretary or FPO"
+      },
+      "subsidy_type": "service",
+      "subsidy_amount": 0,
+      "active": true,
+      "launched_year": 2016
+    },
+    {
+      "id": "micro_irrigation",
+      "name": "Micro Irrigation (PMKSY-Per Drop More Crop)",
+      "category": "Water Management", 
+      "description": "Component of PMKSY focusing on water use efficiency at farm level through micro irrigation systems.",
+      "benefits": {
+        "subsidy_rates": {
+          "small_marginal": "55% of cost",
+          "other_farmers": "45% of cost",
+          "sc_st": "55% of cost + additional state subsidy"
+        },
+        "systems_covered": ["Drip irrigation", "Sprinkler irrigation", "Raingun systems", "Micro-sprinklers"]
+      },
+      "eligibility": {
+        "farmers": "All categories of farmers",
+        "minimum_area": "0.5 hectares for individuals, 5 hectares for groups",
+        "documents_required": ["Land ownership certificate", "Water source certificate", "Bank account details"],
+        "water_source": "Assured water source mandatory"
+      },
+      "technical_specifications": [
+        "BIS/ISI certified equipment only",
+        "Minimum 7 years warranty on equipment",
+        "Installation by certified technicians",
+        "Mandatory training for farmers"
+      ],
+      "application_process": {
+        "mode": "Online through PMKSY portal",
+        "contact": "District Irrigation Officer or Horticulture Officer", 
+        "approval": "Technical approval followed by financial sanction",
+        "installation": "Supervised installation and training"
+      },
+      "subsidy_type": "percentage",
+      "subsidy_amount": 55.0,
+      "active": true,
+      "launched_year": 2015
+    }
+  ],
+  "metadata": {
+    "last_updated": "2024-01-15",
+    "version": "1.2",
+    "source": "Ministry of Agriculture and Farmers Welfare, Government of India",
+    "total_schemes": 8,
+    "categories": [
+      "Direct Income Support",
+      "Crop Insurance", 
+      "Credit Facility",
+      "Soil Management",
+      "Organic Farming",
+      "Seed Production",
+      "Market Access",
+      "Water Management"
+    ]
+  }
+}

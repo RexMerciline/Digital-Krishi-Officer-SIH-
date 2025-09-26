@@ -1,0 +1,271 @@
+{
+  "crops": {
+    "rice": {
+      "name": "Rice",
+      "scientific_name": "Oryza sativa",
+      "season": ["Kharif", "Rabi"],
+      "varieties": ["Basmati", "Non-Basmati", "Aromatic", "Fine", "Medium", "Coarse"],
+      "growing_regions": ["Punjab", "Haryana", "Uttar Pradesh", "West Bengal", "Andhra Pradesh", "Tamil Nadu"],
+      "average_yield": "2.5-4.0 tonnes/hectare",
+      "water_requirement": "1200-1500 mm",
+      "soil_type": "Clay loam, well-drained",
+      "common_diseases": ["Blast", "Brown spot", "Sheath blight", "Bacterial leaf blight"],
+      "common_pests": ["Stem borer", "Brown planthopper", "Green leafhopper", "Rice bug"]
+    },
+    "wheat": {
+      "name": "Wheat",
+      "scientific_name": "Triticum aestivum",
+      "season": ["Rabi"],
+      "varieties": ["Durum", "Bread wheat", "Emmer", "Einkorn"],
+      "growing_regions": ["Punjab", "Haryana", "Uttar Pradesh", "Madhya Pradesh", "Rajasthan", "Bihar"],
+      "average_yield": "3.0-4.5 tonnes/hectare",
+      "water_requirement": "450-650 mm",
+      "soil_type": "Well-drained loamy soil",
+      "common_diseases": ["Rust (Yellow, Brown, Black)", "Powdery mildew", "Septoria leaf blotch", "Fusarium head blight"],
+      "common_pests": ["Aphids", "Armyworm", "Termites", "Shoot fly"]
+    },
+    "sugarcane": {
+      "name": "Sugarcane",
+      "scientific_name": "Saccharum officinarum",
+      "season": ["Annual crop - planted Oct-Mar"],
+      "varieties": ["Early maturing", "Mid-season", "Late maturing"],
+      "growing_regions": ["Uttar Pradesh", "Maharashtra", "Karnataka", "Tamil Nadu", "Gujarat", "Punjab"],
+      "average_yield": "60-80 tonnes/hectare",
+      "water_requirement": "1800-2200 mm",
+      "soil_type": "Well-drained fertile soil",
+      "common_diseases": ["Red rot", "Smut", "Wilt", "Mosaic virus"],
+      "common_pests": ["Early shoot borer", "Top borer", "Root borer", "Pyrilla"]
+    },
+    "cotton": {
+      "name": "Cotton",
+      "scientific_name": "Gossypium",
+      "season": ["Kharif"],
+      "varieties": ["Bt cotton", "Non-Bt cotton", "Organic cotton"],
+      "growing_regions": ["Gujarat", "Maharashtra", "Telangana", "Andhra Pradesh", "Karnataka", "Madhya Pradesh"],
+      "average_yield": "450-600 kg/hectare",
+      "water_requirement": "600-800 mm",
+      "soil_type": "Deep, well-drained black soil",
+      "common_diseases": ["Fusarium wilt", "Bacterial blight", "Anthracnose", "Alternaria leaf spot"],
+      "common_pests": ["Bollworm", "Aphids", "Jassids", "Thrips", "Whitefly"]
+    },
+    "maize": {
+      "name": "Maize",
+      "scientific_name": "Zea mays",
+      "season": ["Kharif", "Rabi", "Summer"],
+      "varieties": ["Flint corn", "Dent corn", "Sweet corn", "Popcorn"],
+      "growing_regions": ["Karnataka", "Andhra Pradesh", "Maharashtra", "Rajasthan", "Uttar Pradesh", "Madhya Pradesh"],
+      "average_yield": "2.5-6.0 tonnes/hectare",
+      "water_requirement": "500-800 mm",
+      "soil_type": "Well-drained fertile loam",
+      "common_diseases": ["Turcicum leaf blight", "Maydis leaf blight", "Common rust", "Downy mildew"],
+      "common_pests": ["Fall armyworm", "Stem borer", "Pink borer", "Shoot fly"]
+    },
+    "groundnut": {
+      "name": "Groundnut",
+      "scientific_name": "Arachis hypogaea",
+      "season": ["Kharif", "Rabi"],
+      "varieties": ["Spanish type", "Virginia type", "Valencia type"],
+      "growing_regions": ["Gujarat", "Andhra Pradesh", "Tamil Nadu", "Karnataka", "Maharashtra", "Rajasthan"],
+      "average_yield": "1.2-2.5 tonnes/hectare",
+      "water_requirement": "500-700 mm",
+      "soil_type": "Well-drained sandy loam",
+      "common_diseases": ["Tikka disease", "Rust", "Late leaf spot", "Collar rot"],
+      "common_pests": ["Aphids", "Jassids", "Thrips", "Red hairy caterpillar"]
+    }
+  },
+  "weather_advice": {
+    "heavy_rain": {
+      "title": "Heavy Rain Precautions",
+      "actions": [
+        "Ensure proper field drainage to prevent waterlogging",
+        "Delay harvesting operations until weather clears",
+        "Cover harvested crops and grain storage areas",
+        "Check for fungal diseases after rain subsides",
+        "Avoid pesticide/fertilizer application during rain",
+        "Inspect and repair farm infrastructure"
+      ],
+      "risk_level": "high",
+      "crops_affected": ["All crops susceptible to waterlogging"],
+      "timeline": "Immediate action required"
+    },
+    "drought": {
+      "title": "Drought Management",
+      "actions": [
+        "Implement water conservation techniques",
+        "Apply mulching to reduce moisture loss",
+        "Use drought-resistant crop varieties",
+        "Adjust irrigation schedule to early morning/evening",
+        "Apply foliar nutrition to stressed plants",
+        "Monitor pest activity (increases during drought)"
+      ],
+      "risk_level": "high",
+      "crops_affected": ["Water-intensive crops like rice, sugarcane"],
+      "timeline": "Continuous monitoring required"
+    },
+    "high_temperature": {
+      "title": "Heat Wave Protection",
+      "actions": [
+        "Increase irrigation frequency",
+        "Provide shade nets for sensitive crops",
+        "Harvest during cooler hours (early morning/evening)",
+        "Apply anti-transpirant sprays",
+        "Ensure adequate ventilation in storage areas",
+        "Monitor livestock for heat stress"
+      ],
+      "risk_level": "medium",
+      "crops_affected": ["Leafy vegetables, flowers, fruits"],
+      "timeline": "During heat wave period"
+    },
+    "frost": {
+      "title": "Frost Protection",
+      "actions": [
+        "Cover sensitive crops with cloth/plastic sheets",
+        "Use smoke generation to prevent frost formation",
+        "Spray water on crops before sunrise",
+        "Delay pruning operations",
+        "Apply potash fertilizer to increase plant resistance",
+        "Harvest mature crops before frost occurrence"
+      ],
+      "risk_level": "high",
+      "crops_affected": ["Vegetables, fruits, young plants"],
+      "timeline": "Before and during frost nights"
+    },
+    "strong_winds": {
+      "title": "Wind Damage Prevention",
+      "actions": [
+        "Provide support stakes for tall crops",
+        "Create windbreaks using trees or nets",
+        "Harvest mature fruits before wind damage",
+        "Secure greenhouse structures and shade nets",
+        "Avoid spraying operations during windy conditions",
+        "Check and repair damaged plant supports"
+      ],
+      "risk_level": "medium",
+      "crops_affected": ["Tall crops, fruit trees, greenhouse crops"],
+      "timeline": "Before high wind events"
+    }
+  },
+  "market_insights": {
+    "price_factors": [
+      "Seasonal demand and supply variations",
+      "Government procurement policies and MSP announcements", 
+      "Export-import trends and international prices",
+      "Weather conditions affecting crop production",
+      "Storage and transportation costs",
+      "Festival seasons increasing demand",
+      "Industrial demand for raw materials",
+      "Competition from substitute crops"
+    ],
+    "selling_tips": [
+      "Monitor daily mandi prices before selling",
+      "Consider transportation costs to different markets",
+      "Check quality parameters and grading standards",
+      "Avoid selling immediately after harvest (prices usually low)",
+      "Form farmer groups for better bargaining power",
+      "Use warehousing facilities during low price periods",
+      "Keep proper documentation for quality certification",
+      "Understand payment terms and settlement procedures"
+    ],
+    "storage_advice": [
+      "Ensure proper moisture content before storage (12-14% for grains)",
+      "Use scientific storage structures to prevent losses",
+      "Apply proper fumigation treatments",
+      "Regular monitoring for pest and rodent activity",
+      "Maintain proper ventilation to prevent heating",
+      "Keep storage areas clean and dry",
+      "Use first-in-first-out principle for stock rotation",
+      "Maintain proper records of stock and quality"
+    ]
+  },
+  "farming_calendar": {
+    "kharif_season": {
+      "period": "June to November",
+      "major_crops": ["Rice", "Cotton", "Sugarcane", "Maize", "Groundnut", "Soybean"],
+      "key_activities": [
+        "June: Land preparation and sowing",
+        "July-August: Transplanting, weed management", 
+        "September: Pest and disease monitoring",
+        "October: Harvesting of early varieties",
+        "November: Main harvesting period"
+      ]
+    },
+    "rabi_season": {
+      "period": "November to April", 
+      "major_crops": ["Wheat", "Barley", "Gram", "Pea", "Mustard", "Potato"],
+      "key_activities": [
+        "November: Field preparation and sowing",
+        "December-January: Irrigation and fertilizer application",
+        "February: Pest monitoring and management",
+        "March: Pre-harvest operations",
+        "April: Harvesting and post-harvest management"
+      ]
+    },
+    "zaid_season": {
+      "period": "April to June",
+      "major_crops": ["Maize", "Fodder crops", "Watermelon", "Cucumber", "Fodder sorghum"],
+      "key_activities": [
+        "April: Land preparation with assured irrigation",
+        "May: Intensive crop management",
+        "June: Harvesting before monsoon"
+      ]
+    }
+  },
+  "fertilizer_recommendations": {
+    "primary_nutrients": {
+      "nitrogen": {
+        "symbol": "N",
+        "sources": ["Urea (46% N)", "Ammonium sulfate (20% N)", "CAN (25% N)"],
+        "functions": ["Vegetative growth", "Chlorophyll formation", "Protein synthesis"],
+        "deficiency_symptoms": ["Yellowing of older leaves", "Stunted growth", "Reduced tillering"],
+        "application_timing": ["Basal dose", "Top dressing at active growth stages"]
+      },
+      "phosphorus": {
+        "symbol": "P",
+        "sources": ["Single Super Phosphate (16% P2O5)", "DAP (46% P2O5)", "Triple Super Phosphate (46% P2O5)"],
+        "functions": ["Root development", "Flowering and fruiting", "Energy transfer"],
+        "deficiency_symptoms": ["Purple coloration of leaves", "Poor root development", "Delayed maturity"],
+        "application_timing": ["Primarily as basal application"]
+      },
+      "potassium": {
+        "symbol": "K", 
+        "sources": ["Muriate of Potash (60% K2O)", "Sulphate of Potash (50% K2O)"],
+        "functions": ["Disease resistance", "Water regulation", "Enzyme activation"],
+        "deficiency_symptoms": ["Yellowing and burning of leaf margins", "Weak stems", "Poor grain filling"],
+        "application_timing": ["Basal and top dressing"]
+      }
+    },
+    "secondary_nutrients": {
+      "calcium": "Gypsum, Lime",
+      "magnesium": "Magnesium sulfate, Dolomite", 
+      "sulfur": "Gypsum, Ammonium sulfate"
+    },
+    "micronutrients": {
+      "zinc": "Zinc sulfate",
+      "iron": "Ferrous sulfate",
+      "boron": "Borax",
+      "copper": "Copper sulfate",
+      "manganese": "Manganese sulfate"
+    }
+  },
+  "pest_management": {
+    "integrated_approach": [
+      "Regular field monitoring and scouting",
+      "Use of pheromone traps for pest monitoring",
+      "Biological control using beneficial insects",
+      "Cultural practices like crop rotation",
+      "Resistant varieties when available",
+      "Judicious use of chemical pesticides",
+      "Proper timing of pesticide applications",
+      "Follow pre-harvest intervals (PHI)"
+    ],
+    "organic_solutions": [
+      "Neem-based products for pest control",
+      "Botanical extracts (garlic, chili, ginger)",
+      "Bio-pesticides using Bt and NPV",
+      "Release of parasitoids and predators",
+      "Use of sticky traps and light traps",
+      "Companion planting with repellent crops",
+      "Proper sanitation and field hygiene"
+    ]
+  }
+}
