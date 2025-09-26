@@ -407,7 +407,7 @@ body {
     position: relative;
 }
 .logo-cc {
-  width: 200px;   /* set desired width */
+  width: 15px;   /* set desired width */
   height: auto;   /* keeps the original aspect ratio */
 }
 
