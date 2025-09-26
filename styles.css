@@ -10,6 +10,7 @@
 .image{
     border-radius: 50%;
 }
+
 :root {
     /* Agricultural Color Palette */
     --primary-green: #0b6b2b;
@@ -406,11 +407,6 @@ body {
     box-shadow: var(--shadow-sm);
     position: relative;
 }
-.logo-cc {
-  width: 15px;   /* set desired width */
-  height: auto;   /* keeps the original aspect ratio */
-}
-
 
 .message.user .message-content {
     background: var(--primary-green);
@@ -452,6 +448,8 @@ body {
     border-radius: 50%;
     animation: typing 1.4s infinite ease-in-out;
 }
+
+
 
 .typing-dot:nth-child(1) { animation-delay: -0.32s; }
 .typing-dot:nth-child(2) { animation-delay: -0.16s; }
