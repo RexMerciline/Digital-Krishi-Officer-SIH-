@@ -406,6 +406,11 @@ body {
     box-shadow: var(--shadow-sm);
     position: relative;
 }
+.logo-cc {
+  width: 200px;   /* set desired width */
+  height: auto;   /* keeps the original aspect ratio */
+}
+
 
 .message.user .message-content {
     background: var(--primary-green);
