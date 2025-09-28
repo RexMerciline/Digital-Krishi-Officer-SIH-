@@ -206,106 +206,6 @@ Object.keys(laborEquipmentTranslations).forEach(lang => {
     }
 });
 
-// Mock data for labor and equipment
-const mockLaborData = [
-    {
-        id: 1,
-        name: 'Ravi Kumar',
-        type: 'tractor-operator',
-        experience: 8,
-        location: 'Thrissur',
-        dailyWage: 800,
-        available: true,
-        rating: 4.5,
-        contact: '+91 98765 43210',
-        description: 'Experienced tractor operator with 8 years experience. Expert in ploughing, sowing, and harvesting operations.',
-        skills: ['Ploughing', 'Sowing', 'Harvesting']
-    },
-    {
-        id: 2,
-        name: 'Suresh Team',
-        type: 'field-worker',
-        experience: 5,
-        location: 'Kottayam',
-        dailyWage: 500,
-        available: true,
-        rating: 4.2,
-        contact: '+91 87654 32109',
-        description: 'Team of 4 experienced field workers available for all types of farm work.',
-        skills: ['Weeding', 'Transplanting', 'Harvesting']
-    },
-    {
-        id: 3,
-        name: 'Mohammad Ali',
-        type: 'irrigation',
-        experience: 12,
-        location: 'Kannur',
-        dailyWage: 700,
-        available: true,
-        rating: 4.8,
-        contact: '+91 76543 21098',
-        description: 'Irrigation specialist with expertise in drip irrigation and sprinkler systems.',
-        skills: ['Drip Irrigation', 'Sprinklers', 'Pump Maintenance']
-    }
-];
-
-const mockEquipmentData = [
-    {
-        id: 1,
-        title: 'Mahindra 575 DI Tractor',
-        type: 'tractor',
-        brand: 'Mahindra',
-        model: '575 DI',
-        year: 2020,
-        hours: 1200,
-        category: 'rent',
-        price: 1500,
-        priceType: 'per-day',
-        location: 'Thrissur',
-        contact: '+91 98765 43210',
-        description: 'Well-maintained Mahindra tractor perfect for all farming operations. Includes rotavator attachment.',
-        image: '🚜',
-        rating: 4.5,
-        availability: true
-    },
-    {
-        id: 2,
-        title: 'Rice Harvester for Sale',
-        type: 'harvester',
-        brand: 'Indo Farm',
-        model: 'IH-484',
-        year: 2019,
-        hours: 800,
-        category: 'sale',
-        price: 450000,
-        priceType: 'fixed',
-        location: 'Kottayam',
-        contact: '+91 87654 32109',
-        description: 'Excellent condition rice harvester. Low working hours, well maintained.',
-        image: '🌾',
-        rating: 4.3,
-        availability: true
-    },
-    {
-        id: 3,
-        title: 'Rotary Tiller Rental',
-        type: 'cultivator',
-        brand: 'Fieldking',
-        model: 'Mega T',
-        year: 2021,
-        hours: 500,
-        category: 'rent',
-        price: 800,
-        priceType: 'per-day',
-        location: 'Kasargod',
-        contact: '+91 76543 21098',
-        description: 'Heavy duty rotary tiller suitable for all soil types. Perfect for land preparation.',
-        image: '🔧',
-        rating: 4.7,
-        availability: true
-    }
-];
-
 // Labor Functions
 function initializeLaborFeatures() {
     setupLaborEventListeners();
@@ -339,20 +239,50 @@ function searchLabor() {
 }
 
 function loadLaborData(type = 'all', location = 'nearby') {
-    let filteredData = mockLaborData;
-    
-    if (type !== 'all') {
-        filteredData = filteredData.filter(labor => labor.type === type);
-    }
-    
-    if (location !== 'nearby') {
-        filteredData = filteredData.filter(labor => 
-            labor.location.toLowerCase() === location.toLowerCase()
-        );
-    }
-    
-    displayLaborResults(filteredData);
+    fetch('sample-data.json')
+        .then(response => response.json())
+        .then(data => {
+            let laborData = data.labor || [];
+
+            // Apply filters
+            if (type !== 'all') {
+                laborData = laborData.filter(labor => labor.type === type);
+            }
+            if (location !== 'nearby') {
+                laborData = laborData.filter(labor =>
+                    labor.location.toLowerCase() === location.toLowerCase()
+                );
+            }
+
+            displayLaborResults(laborData);
+        })
+        .catch(error => console.error('Error loading labor data:', error));
 }
+
+function loadEquipmentData(type = 'all', category = 'all', location = 'nearby') {
+    fetch('sample-data.json')
+        .then(response => response.json())
+        .then(data => {
+            let equipmentData = data.equipment || [];
+
+            // Apply filters
+            if (type !== 'all') {
+                equipmentData = equipmentData.filter(eq => eq.type === type);
+            }
+            if (category !== 'all') {
+                equipmentData = equipmentData.filter(eq => eq.category === category);
+            }
+            if (location !== 'nearby') {
+                equipmentData = equipmentData.filter(eq =>
+                    eq.location.toLowerCase() === location.toLowerCase()
+                );
+            }
+
+            displayEquipmentResults(equipmentData);
+        })
+        .catch(error => console.error('Error loading equipment data:', error));
+}
+
 
 function displayLaborResults(laborData) {
     const container = $('#labor-results');
@@ -653,6 +583,7 @@ function switchTab(tabName) {
 
 
 // Mock Data
+
 const mockWeatherData = {
     5: [
         { date: '2024-01-15', high: 28, low: 15, condition: 'Sunny', humidity: 65, precipitation: 0, wind: 12, icon: '☀️' },
@@ -1069,6 +1000,7 @@ function stopVoiceAssistant() {
     $('.assistant-avatar').classList.remove('active');
     $('#start-voice-assistant').classList.remove('hidden');
     $('#stop-voice-assistant').classList.add('hidden');
+    
     updateVoiceStatus('Ready to listen');
     
     speechSynthesis.cancel();
