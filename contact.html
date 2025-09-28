@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Help - Digital Krishi Officer</title>
+    <meta name="description" content="Get help and support from Digital Krishi Officer - Contact us anytime">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contact.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="Digital Krishi Officer Logo" class="logo-img">
+                <span class="logo-text">Digital Krishi Officer</span>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="machine-shop.html" class="nav-link">Machine Shop</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li class="language-switcher">
+                    <button id="languageBtn" class="lang-btn">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">EN</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button onclick="changeLanguage('en')" class="lang-option">English</button>
+                        <button onclick="changeLanguage('hi')" class="lang-option">हिंदी</button>
+                        <button onclick="changeLanguage('ml')" class="lang-option">മലയാളം</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title" data-en="Contact & Help" data-hi="संपर्क और सहायता" data-ml="ബന്ധപ്പെടുക & സഹായം">Contact & Help</h1>
+                <p class="page-subtitle" data-en="We're here to help you  24x7. Get instant support for all your farming needs." data-hi="हम आपकी 24x7 सहायता के लिए यहाँ हैं। अपनी सभी कृषि आवश्यकताओं के लिए तुरंत सहायता प्राप्त करें।" data-ml="ഞങ്ങൾ നിങ്ങളുടെ കാര്‍ഷിക ആവശ്യങ്ങൾക്കായി 24x7 കൈകൊടുക്കാൻ ഇവിടെ ഉണ്ട്. തരം പറയാത്ത പിന്തുണ ലഭിക്ക്.">We're here to help you 24x7. Get instant support for all your farming needs.</p>
+            </div>
+        </section>
+
+        <!-- Quick Help Section -->
+        <section class="quick-help">
+            <div class="container">
+                <h2 class="section-title" data-en="Quick Help" data-hi="त्वरित सहायता" data-ml="സ്വിഫ്റ്റ് സഹായം">Quick Help</h2>
+                <div class="help-grid">
+                    <div class="help-card emergency" onclick="callEmergency()">
+                        <div class="help-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3 data-en="Emergency Helpline" data-hi="आपातकालीन हेल्पलाइन" data-ml="അന്തിനാശന ബിജെപി">Emergency Helpline</h3>
+                        <p class="helpline-number">1800-180-1551</p>
+                        <p data-en="24x7 Emergency Support" data-hi="24x7 आपातकालीन सहायता" data-ml="24x7 എമർജൻസി പിന്തുണ">24x7 Emergency Support</p>
+                        <button class="help-btn emergency-btn">
+                            <i class="fas fa-phone"></i>
+                            <span data-en="Call Now" data-hi="अभी कॉल करें" data-ml="ഇപ്പോൾ വിളിക്കുക">Call Now</span>
+                        </button>
+                    </div>
+
+                    <div class="help-card" onclick="startChat()">
+                        <div class="help-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 data-en="Live Chat Support" data-hi="लाइव चैट सहायता" data-ml="ലൈവ് ചാറ്റ് പിന്തുണ">Live Chat Support</h3>
+                        <p data-en="Get instant answers from our AI assistant" data-hi="हमारे AI सहायक से तुरंत उत्तर प्राप्त करें" data-ml="നമുടെ എ.ഐ. സഹായകന്റെ സഹായത്തോടെ ഒരുങ്ങിയ ಉತ್ತರങ്ങൾ നേടുക">Get instant answers from our AI assistant</p>
+                        <button class="help-btn">
+                            <i class="fas fa-comment"></i>
+                            <span data-en="Start Chat" data-hi="चैट शुरू करें" data-ml="ചാറ്റ് തുടങ്ങിയ്ക">Start Chat</span>
+                        </button>
+                    </div>
+
+                    <div class="help-card" onclick="startVoiceAssistant()">
+                        <div class="help-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h3 data-en="Voice Assistant" data-hi="आवाज सहायक" data-ml="സ്വരം സഹായി">Voice Assistant</h3>
+                        <p data-en="Speak your questions in Hindi or English" data-hi="हिंदी या अंग्रेजी में अपने प्रश्न बोलें" data-ml="നിങ്ങളുടെ ചോദ്യങ്ങൾ ഹിന്ദിയിലോ ഇംഗ്ലീഷിലോ സംസാരിക്കൂ">Speak your questions in Hindi or English</p>
+                        <button class="help-btn voice-btn">
+                            <i class="fas fa-microphone"></i>
+                            <span data-en="Ask Question" data-hi="प्रश्न पूछें" data-ml="ചോദ്യം ചോദിക്കുക">Ask Question</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Information -->
+        <section class="contact-info">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-section">
+                        <h2 class="section-title" data-en="Contact Information" data-hi="संपर्क जानकारी" data-ml="ബന്ധപ്പെടലിനുള്ള വിവരങ്ങൾ">Contact Information</h2>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h4 data-en="Helpline Numbers" data-hi="हेल्पलाइन नंबर" data-ml="ഹല്പ്ലൈൻ നമ്പറുകൾ">Helpline Numbers</h4>
+                                    <p><strong>Emergency:</strong> 1800-180-1551</p>
+                                    <p><strong>General Support:</strong> 1800-180-1552</p>
+                                    <p><strong>Technical Help:</strong> 1800-180-1553</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h4 data-en="Email Support" data-hi="ईमेल सहायता" data-ml="ഇമെയിൽ പിന്തുണ">Email Support</h4>
+                                    <p>support@digitalkrishi.com</p>
+                                    <p>help@digitalkrishi.com</p>
+                                    <p>feedback@digitalkrishi.com</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h4 data-en="Service Hours" data-hi="सेवा समय" data-ml="സേവന സമയം">Service Hours</h4>
+                                    <p data-en="AI Assistant: 24x7 Available" data-hi="AI सहायक: 24x7 उपलब्ध" data-ml="എഐ സഹായകൻ: 24x7 ലഭ്യമാണ്">AI Assistant: 24x7 Available</p>
+                                    <p data-en="Human Support:6 AM -10 PM" data-hi="मानव सहायता: सुबह 6 - रात 10" data-ml="മാനവ പിന്തുണ: രാവിലെ 6 മുതൽ രാത്രി 10 വരെ">Human Support: 6 AM - 10 PM</p>
+                                    <p data-en="Emergency: Always Available" data-hi="आपातकाल: हमेशा उपलब्ध" data-ml="ആവശ്യകകാലം: എല്ലായ്പ്പോഴും ലഭ്യമാണ്">Emergency: Always Available</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h4 data-en="Office Address" data-hi="कार्यालय का पता" data-ml="ആവശ്യക കാലം: എല്ലായ്പ്പോഴും ലഭ്യമാണ്">Office Address</h4>
+                                    <p>Digital Krishi Officer</p>
+                                    <p>Agriculture Technology Center</p>
+                                    <p>New Delhi, India - 110001</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-section">
+                        <h2 class="section-title" data-en="Send Us a Message" data-hi="हमें संदेश भेजें" data-ml="നമുക്ക് ഒരു സന്ദേശം അയയ്ക്കുക">Send Us a Message</h2>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <label for="name" data-en="Your Name" data-hi="आपका नाम" data-ml="നിന്റെ പേര്">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" data-en="Phone Number" data-hi="फोन नंबर" data-ml="ഫോണു നമ്പർ">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" data-en="Email Address" data-hi="ईमेल पता" data-ml="ഇമെയിൽ വിലാസം">Email Address</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category" data-en="Help Category" data-hi="सहायता श्रेणी">Help Category</label>
+                                <select id="category" name="category" required>
+                                    <option value="" data-en="Select Category" data-hi="श्रेणी चुनें" data-ml="വിഭാഗം തിരഞ്ഞെടുക്കുക">Select Category</option>
+                                    <option value="weather" data-en="Weather & Alerts" data-hi="मौसम और अलर्ट" data-ml="കാലാവസ്ഥ & മുന്നറിയിപ്പുകൾ">Weather & Alerts</option>
+                                    <option value="pest" data-en="Pest Control" data-hi="कीट नियंत्रण" data-ml="പേശിനാശന നിയന്ത്രണം">Pest Control</option>
+                                    <option value="loans" data-en="Loans & Schemes" data-hi="ऋण और योजनाएं" data-ml="ঋണങ്ങൾ & പദ്ധതികൾ">Loans & Schemes</option>
+                                    <option value="market" data-en="Market Prices" data-hi="बाजार मूल्य" data-ml="മാർക്കറ്റ് വിലകൾ">Market Prices</option>
+                                    <option value="machines" data-en="Farm Equipment" data-hi="कृषि उपकरण" data-ml="കൃഷി ഉപകരണങ്ങൾ">Farm Equipment</option>
+                                    <option value="technical" data-en="Technical Support" data-hi="तकनीकी सहायता" data-ml="സാങ്കേതിക പിന്തുണ">Technical Support</option>
+                                    <option value="other" data-en="Other" data-hi="अन्य" data-ml="മറ്റ്">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" data-en="Your Message" data-hi="आपका संदेश" data-ml="നിങ്ങളുടെ സന്ദേശം">Your Message</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                <span data-en="Send Message" data-hi="संदेश भेजें" data-ml="സന്ദേശം അയയ്ക്കുക">Send Message</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section-title" data-en="Frequently Asked Questions" data-hi="अक्सर पूछे जाने वाले प्रश्न" data-ml="അടുത്തിടെ ചോദിച്ച ബിജെപയുടെ ചോദ്യങ്ങൾ">Frequently Asked Questions</h2>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4 data-en="How accurate are the weather predictions?" data-hi="मौसम की भविष्यवाणी कितनी सटीक है?" data-ml="കാലാവസ്ഥാ പ്രവചനങ്ങൾ എത്ര നിസ്സമർത്ഥമാണ്?">How accurate are the weather predictions?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p data-en="Our weather predictions are 85-90% accurate and are updated every 3 hours using satellite data and AI algorithms. We provide hyper-local forecasts specific to your farm location." data-hi="हमारी मौसम भविष्यवाणियां 85-90% सटीक हैं और सैटेलाइट डेटा और AI एल्गोरिदम का उपयोग करके हर 3 घंटे में अपडेट होती हैं। हम आपके खेत के स्थान के लिए विशिष्ट हाइपर-लोकल पूर्वानुमान प्रदान करते हैं।" data-ml="ഞങ്ങളുടെ കാലാവസ്ഥ പ്രവചനങ്ങൾ 85-90% കൃത്യമാണ്, ഉപഗ്രഹ ഡാറ്റയും AI ആൽഗോരിതങ്ങളും ഉപയോഗിച്ച് 3 മണിക്കൂറിൽ തുടർച്ചയായി പുതുക്കുന്നു. ഞങ്ങൾ നിങ്ങളുടെ കൃഷി സ്ഥലത്തിനനുസരിച്ചുള്ള ഹൈപിർ-ലൊക്കൽ പ്രവചനങ്ങൾ നൽകുന്നു.">Our weather predictions are 85-90% accurate and are updated every 3 hours using satellite data and AI algorithms. We provide hyper-local forecasts specific to your farm location.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4 data-en="Can I use the voice assistant in my local language?" data-hi="क्या मैं अपनी स्थानीय भाषा में वॉयस असिस्टेंट का उपयोग कर सकता हूं?" data-ml="ഞാൻ എന്റെ പ്രാദേശിക ഭാഷയിൽ ശബ്ദ സഹായി ഉപയോഗിക്കാമോ?">Can I use the voice assistant in my local language?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p data-en="Yes! Our AI voice assistant supports Hindi, English, and will soon support regional languages like Punjabi, Marathi, Tamil, and Telugu. Simply speak naturally and it will understand your questions." data-hi="हाँ! हमारा AI वॉयस असिस्टेंट हिंदी, अंग्रेजी का समर्थन करता है और जल्द ही पंजाबी, मराठी, तमिल और तेलुगु जैसी क्षेत्रीय भाषाओं का समर्थन करेगा। बस प्राकृतिक रूप से बोलें और यह आपके प्रश्नों को समझ जाएगा।" data-ml="അതെ! നമ്മുടെ AI ശബ്ദ സഹായകൻ ഹിൻഡിച്ചും ഇംഗ്ലീഷിലും പിന്തുണകളും നൽകുന്നു, പഞ്ചാബി, മറാത്തി, തമിഴ്, തെലുങ്കു തുടങ്ങി ന 지역 ഭാഷകൾക്കിടയിലും ഉടൻ പിന്തുണ നൽകുമെന്ന് പ്രതീക്ഷിക്കുന്നു. നിങ്ങൾ പ്രകൃതിവാശി സംസാരിക്കുകയാണെങ്കിൽ, അത് നിങ്ങളുടെ ചോദ്യങ്ങൾ മനസിലാക്കും.">Yes! Our AI voice assistant supports Hindi, English, and will soon support regional languages like Punjabi, Marathi, Tamil, and Telugu. Simply speak naturally and it will understand your questions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4 data-en="How do I get information about government schemes?" data-hi="मुझे सरकारी योजनाओं के बारे में जानकारी कैसे मिलती है?" data-ml="ഞാൻ സർക്കാർ പദ്ധതികളെ കുറിച്ചുള്ള വിവരങ്ങൾ എങ്ങനെയാണു നേടുന്നത്?">How do I get information about government schemes?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p data-en="Use our 'Loans & Government Schemes' feature on the homepage. We provide updated information about all central and state government schemes, eligibility criteria, and application processes. You can also ask our AI assistant specific questions about schemes." data-hi="होमपेज पर हमारी 'ऋण और सरकारी योजनाएं' सुविधा का उपयोग करें। हम सभी केंद्र और राज्य सरकार की योजनाओं, पात्रता मानदंड और आवेदन प्रक्रियाओं के बारे में अपडेटेड जानकारी प्रदान करते हैं। आप हमारे AI सहायक से योजनाओं के बारे में विशिष्ट प्रश्न भी पूछ सकते हैं।" data-ml="മൂല്യങ്ങളിൽ നിന്ന് സ്വന്തമായി 'കളന്പടിക്കുന്ന വായ്പകൾ & സർക്കാർ പദ്ധതികൾ' സൌകര്യം ഉപയോഗിക്കുക. നാം എല്ലാ കേന്ദ്ര, സംസ്ഥാന സർക്കാർ പദ്ധതികളുടെ, യോഗ്യതാ മാനദണ്ഡം, അപേക്ഷാ പ്രക്രിയ എന്നിവയുടെ പുതുക്കിയ വിവരങ്ങൾ നൽകുന്നു. നിങ്ങൾക്ക് ഞങ്ങളുടെ എഐ സഹായി ഇവയുമായി ബന്ധപ്പെട്ട പ്രത്യേക ചോദ്യങ്ങൾ ചോദിക്കാവുന്നതാണ്.">Use our 'Loans & Government Schemes' feature on the homepage. We provide updated information about all central and state government schemes, eligibility criteria, and application processes. You can also ask our AI assistant specific questions about schemes.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4 data-en="Is the service completely free?" data-hi="क्या यह सेवा पूरी तरह से मुफ्त है?" data-ml="ഈ സേവനം सम्पൂർണ്ണമായും സൗജന്യമാണോ?">Is the service completely free?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p data-en="Yes, all basic features including weather alerts, pest control guidance, market prices, and AI assistant are completely free. Some premium features like detailed soil analysis reports may have nominal charges." data-hi="हाँ, मौसम अलर्ट, कीट नियंत्रण मार्गदर्शन, बाजार मूल्य और AI सहायक सहित सभी बुनियादी सुविधाएं पूरी तरह से मुफ्त हैं। विस्तृत मिट्टी विश्लेषण रिपोर्ट जैसी कुछ प्रीमियम सुविधाओं के लिए नाममात्र शुल्क हो सकता है।" data-ml="അതെ, കാലാവസ്ഥാ അലർട്ടുകൾ, ഡിസ്കിച്ചുണ്ടായാൽ പരുഷമായകളും, വിപണിയുടെ വിലകളും, എഐ അസിസ്റ്റന്റുമെല്ലാം തജനമായി നേരിട്ടുള്ള അടിസ്ഥാന സവിശേഷതകൾ നിറം വളർച്ച പ്രാപിക്കുകയാണ്. വിശദമായ മണ്ണിന്റെ വിശകലന റിപ്പോർട്ടുകൾ പോലുള്ള ചില പ്രീമിയം സവിശേഷതകൾക്ക് കുറച്ച് ചാർജുകൾ ഉണ്ടാവാം.">Yes, all basic features including weather alerts, pest control guidance, market prices, and AI assistant are completely free. Some premium features like detailed soil analysis reports may have nominal charges.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4 data-en="How do I connect with local laborers?" data-hi="मैं स्थानीय मजदूरों से कैसे जुड़ूं?" data-ml="ഞാൻ പ്രാദേശിക തൊഴിലാളികളെ എങ്ങനെ ബന്ധപ്പെടാം?">How do I connect with local laborers?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p data-en="Use our 'Labour Connect' feature to find skilled agricultural workers in your area. You can post your requirements, view worker profiles, check ratings, and directly contact them. All workers are verified for quality assurance." data-hi="अपने क्षेत्र में कुशल कृषि मजदूरों को खोजने के लिए हमारी 'लेबर कनेक्ट' सुविधा का उपयोग करें। आप अपनी आवश्यकताएं पोस्ट कर सकते हैं, कार्यकर्ता प्रोफाइल देख सकते हैं, रेटिंग जांच सकते हैं और उनसे सीधे संपर्क कर सकते हैं। गुणवत्ता आश्वासन के लिए सभी कार्यकर्ता सत्यापित हैं।" data-ml="നിങ്ങളുടെ പ്രദേശത്ത് കഴിവുള്ള കൃഷിFormatting Enable Worker සඳහා ഞങ്ങളുടെ 'ലേബർ കണക്ട്' സവിശേഷത ഉപയോഗിക്കുക. നിങ്ങൾ നിങ്ങളുടെ ആവശ്യം പോസ്റ്റ് ചെയ്യാവുന്നതാണ്, തൊഴിലാളികളുടെ പ്രൊഫൈലുകൾ വീക്ഷിക്കാവുന്നതാണ്, റേറ്റിംഗുകൾ പരിശോധിക്കാവുന്നതാണ്, നേരിട്ടുള്ള ബന്ധപ്പെടാവുന്നതാണ്. എല്ലാ തൊഴിലാളികളും ഗുണനിലവാര തനിപ്പട്ടികയ്ക്ക് സ്ഥിരീകരിച്ചിരിക്കുന്നു.">Use our 'Labour Connect' feature to find skilled agricultural workers in your area. You can post your requirements, view worker profiles, check ratings, and directly contact them. All workers are verified for quality assurance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Chat Widget -->
+        <div class="chat-widget" id="chatWidget">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <i class="fas fa-robot"></i>
+                    <span data-en="Krishi Assistant" data-hi="कृषि सहायक" data-ml="കർഷക സഹായി">Krishi Assistant</span>
+                </div>
+                <button class="chat-close" onclick="closeChatWidget()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <p data-en="Hello! I'm your Digital Krishi Officer. How can I help you today?" data-hi="नमस्ते! मैं आपका डिजिटल कृषि अधिकारी हूं। आज मैं आपकी कैसे मदद कर सकता हूं?" data-ml="ഹലോ! ഞാൻ നിങ്ങളുടെ ഡിജിറ്റൽ കൃഷി ഓഫീസറാണ്. ഞാൻ നിങ്ങളെ ഇന്ന് എങ്ങനെ സഹായിക്കാം?">Hello! I'm your Digital Krishi Officer. How can I help you today?</p>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Type your message..." data-en-placeholder="Type your message..." data-hi-placeholder="अपना संदेश टाइप करें..." data-ml="നിങ്ങളുടെ സന്ദേശം ടൈപ്പ് ചെയ്യുക...">
+                <button onclick="sendChatMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Toggle Button -->
+        <button class="chat-toggle" id="chatToggle" onclick="toggleChatWidget()">
+            <i class="fas fa-comments"></i>
+            <span class="chat-notification" id="chatNotification">1</span>
+        </button>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.png" alt="Digital Krishi Officer Logo" class="logo-img">
+                        <span class="logo-text">Digital Krishi Officer</span>
+                    </div>
+                    <p data-en="Your trusted AI farming companion available 24x7" data-hi="आपका विश्वसनीय AI कृषि साथी 24x7 उपलब्ध" data-ml="നിന്റെ വിശ്വസനീയമായ എഐ കൃഷി പങ്കാളി 24x7 ലഭ്യമാണ്">Your trusted AI farming companion available 24x7</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-hi="त्वरित लिंक">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html" data-en="Home" data-hi="होम" data-ml="മകന്‍">Home</a></li>
+                        <li><a href="machine-shop.html" data-en="Machine Shop" data-hi="मशीन शॉप" data-ml="മെഷീൻ ഷോപ്പ്">Machine Shop</a></li>
+                        <li><a href="contact.html" data-en="Contact" data-hi="संपर्क" data-ml="ബന്ധം">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-en="Contact Info" data-hi="संपर्क जानकारी" data-ml="ബന്ധപ്പെടലിനുള്ള വിവരങ്ങൾ">Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +91 1800-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> support@digitalkrishi.com</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p data-en="© 2024 Digital Krishi Officer. All rights reserved." data-hi="© 2024 डिजिटल कृषि अधिकारी। सभी अधिकार सुरक्षित।" data-ml="© 2024 ഡિજിറ്റൽ കൃഷി ഓഫീസർ. എല്ലാ അവകാശങ്ങളും സംരക്ഷിതമാണ്.">© 2024 Digital Krishi Officer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+    <script src="contact.js"></script>
+</body>
+</html>

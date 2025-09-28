@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Shop - Digital Krishi Officer</title>
+    <meta name="description" content="Browse and buy farming machines and tools - Digital Krishi Officer Machine Shop">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="Digital Krishi Officer Logo" class="logo-img">
+                <span class="logo-text">Digital Krishi Officer</span>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link" data-en="Home" data-hi="होम" data-ml="ഹോം">Home</a></li>
+                <li><a href="machine-shop.html" class="nav-link active" data-en="Machine Shop" data-hi="मशीन शॉप" data-ml="യന്ത്രങ്ങളുടെ കട">Machine Shop</a></li>
+                <li><a href="contact.html" class="nav-link" data-en="Contact" data-hi="संपर्क" data-ml="ബന്ധപ്പെടുക">Contact</a></li>
+                <li class="language-switcher">
+                    <button id="languageBtn" class="lang-btn">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">EN</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button onclick="changeLanguage('en')" class="lang-option">English</button>
+                        <button onclick="changeLanguage('hi')" class="lang-option">हिंदी</button>
+                        <button onclick="changeLanguage('ml')" class="lang-option">മലയാളം</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title" data-en="Farm Equipment Shop" data-hi="कृषि उपकरण दुकान" data-ml="കൃഷി ഉപകരണങ്ങളുടെ കട">Farm Equipment Shop</h1>
+                <p class="page-subtitle" data-en="Find the best farming machines and tools for your needs" data-hi="अपनी आवश्यकताओं के लिए सर्वोत्तम कृषि मशीनें और उपकरण खोजें" data-ml="നിങ്ങളുടെ ആവശ്യങ്ങൾക്ക് ഏറ്റവും അനുയോജ്യമായ കൃഷി യന്ത്രങ്ങളും ഉപകരണങ്ങളും കണ്ടെത്തുക">Find the best farming machines and tools for your needs</p>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="filters">
+            <div class="container">
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search machines..." data-en-placeholder="Search machines..." data-hi-placeholder="मशीन खोजें..." data-ml-placeholder="യന്ത്രങ്ങൾ തിരയുക...">
+                    </div>
+                    
+                    <div class="filter-options">
+                        <select id="categoryFilter">
+                            <option value="all" data-en="All Categories" data-hi="सभी श्रेणियां" data-ml="എല്ലാ വിഭാഗങ്ങളും">All Categories</option>
+                            <option value="tractors" data-en="Tractors" data-hi="ट्रैक्टर" data-ml="ട്രാക്ടറുകൾ">Tractors</option>
+                            <option value="harvesters" data-en="Harvesters" data-hi="हार्वेस्टर" data-ml="ഹാർവെസ്റ്ററുകൾ">Harvesters</option>
+                            <option value="tillers" data-en="Tillers" data-hi="टिलर" data-ml="ടില്ലറുകൾ">Tillers</option>
+                            <option value="sprayers" data-en="Sprayers" data-hi="स्प्रेयर" data-ml="സ്പ്രേയറുകൾ">Sprayers</option>
+                            <option value="tools" data-en="Hand Tools" data-hi="हाथ के उपकरण" data-ml="കൈ ഉപകരണങ്ങൾ">Hand Tools</option>
+                        </select>
+                        
+                        <select id="priceFilter">
+                            <option value="all" data-en="All Prices" data-hi="सभी मूल्य" data-ml="എല്ലാ വിലകളും">All Prices</option>
+                            <option value="low" data-en="Under ₹50,000" data-hi="₹50,000 से कम" data-ml="₹50,000-ൽ താഴെ">Under ₹50,000</option>
+                            <option value="medium" data-en="₹50,000 - ₹2,00,000" data-hi="₹50,000 - ₹2,00,000" data-ml="₹50,000 - ₹2,00,000">₹50,000 - ₹2,00,000</option>
+                            <option value="high" data-en="Above ₹2,00,000" data-hi="₹2,00,000 से अधिक" data-ml="₹2,00,000-ൽ കൂടുതൽ">Above ₹2,00,000</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Grid -->
+        <section class="products-section">
+            <div class="container">
+                <div class="products-grid" id="productsGrid">
+                    
+                    <!-- Tractor 1 -->
+                    <div class="product-card" data-category="tractors" data-price="850000">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=400" alt="Mahindra Tractor">
+                            <div class="product-badge">
+                                <span data-en="Best Seller" data-hi="बेस्ट सेलर" data-ml="ഏറ്റവും കൂടുതൽ വിൽക്കുന്ന">Best Seller</span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title" data-en="Mahindra 475 DI Tractor" data-hi="महिंद्रा 475 DI ट्रैक्टर" data-ml="മഹീന്ദ്ര 475 DI ട്രാക്ടർ">Mahindra 475 DI Tractor</h3>
+                            <p class="product-desc" data-en="42 HP, 3-cylinder engine, perfect for medium farms" data-hi="42 HP, 3-सिलिंडर इंजन, मध्यम खेतों के लिए एकदम सही" data-ml="42 HP, 3-സിലിണ്ടർ എഞ്ചിൻ, മധ്യമമായ കൃഷിയിടങ്ങൾക്ക് അനുയോജ്യം">42 HP, 3-cylinder engine, perfect for medium farms</p>
+                            <div class="product-specs">
+                                <span><i class="fas fa-cog"></i> 42 HP</span>
+                                <span><i class="fas fa-gas-pump"></i> Diesel</span>
+                                <span><i class="fas fa-tools"></i> 3-Cylinder</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">₹8,50,000</span>
+                                <span class="original-price">₹9,00,000</span>
+                            </div>
+                            <button class="buy-btn" onclick="buyProduct('mahindra-475', 'https://www.mahindratractor.com/')">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span data-en="Buy Now" data-hi="अभी खरीदें" data-ml="ഇപ്പോൾ വാങ്ങുക">Buy Now</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Harvester -->
+                    <div class="product-card" data-category="harvesters" data-price="1500000">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=400" alt="Combine Harvester">
+                            <div class="product-badge new">
+                                <span data-en="New Arrival" data-hi="नया आगमन" data-ml="പുതിയ വരവ്">New Arrival</span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title" data-en="John Deere W70 Combine Harvester" data-hi="जॉन डीयर W70 कंबाइन हार्वेस्टर" data-ml="ജോൺ ഡീയർ W70 കംബൈൻ ഹാർവെസ്റ്റർ">John Deere W70 Combine Harvester</h3>
+                            <p class="product-desc" data-en="Advanced harvesting technology with GPS guidance" data-hi="GPS गाइडेंस के साथ उन्नत कटाई प्रौद्योगिकी" data-ml="GPS ഗൈഡൻസിനൊപ്പം വികസിത വിളവെടുപ്പ് സാങ്കേതികവിദ്യ">Advanced harvesting technology with GPS guidance</p>
+                            <div class="product-specs">
+                                <span><i class="fas fa-cog"></i> 95 HP</span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> 3.6m Width</span>
+                                <span><i class="fas fa-microchip"></i> GPS</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">₹15,00,000</span>
+                            </div>
+                            <button class="buy-btn" onclick="buyProduct('johndeere-w70', 'https://www.deere.co.in/')">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span data-en="Buy Now" data-hi="अभी खरीदें" data-ml="ഇപ്പോൾ വാങ്ങുക">Buy Now</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tiller -->
+                    <div class="product-card" data-category="tillers" data-price="45000">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400" alt="Power Tiller">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title" data-en="VST Power Tiller 130 DI" data-hi="VST पावर टिलर 130 DI" data-ml="VST പവർ ടില്ലർ 130 DI">VST Power Tiller 130 DI</h3>
+                            <p class="product-desc" data-en="13 HP power tiller for small to medium farms" data-hi="छोटे से मध्यम खेतों के लिए 13 HP पावर टिलर" data-ml="ചെറിയതും ഇടത്തരവുമായ കൃഷിയിടങ്ങൾക്കായുള്ള 13 HP പവർ ടില്ലർ">13 HP power tiller for small to medium farms</p>
+                            <div class="product-specs">
+                                <span><i class="fas fa-cog"></i> 13 HP</span>
+                                <span><i class="fas fa-weight-hanging"></i> 285 Kg</span>
+                                <span><i class="fas fa-leaf"></i> Eco-friendly</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">₹45,000</span>
+                                <span class="original-price">₹50,000</span>
+                            </div>
+                            <button class="buy-btn" onclick="buyProduct('vst-130', 'https://www.vsttractors.com/')">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span data-en="Buy Now" data-hi="अभी खरीदें" data-ml="ഇപ്പോൾ വാങ്ങുക">Buy Now</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sprayer -->
+                    <div class="product-card" data-category="sprayers" data-price="25000">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1574483787739-cc7db9ee3922?w=400" alt="Battery Sprayer">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title" data-en="Honda Battery Sprayer WJR2425" data-hi="होंडा बैटरी स्प्रेयर WJR2425" data-ml="ഹോണ്ട ബാറ്ററി സ്പ്രേയർ WJR2425">Honda Battery Sprayer WJR2425</h3>
+                            <p class="product-desc" data-en="25-liter capacity with long-lasting battery" data-hi="लंबे समय तक चलने वाली बैटरी के साथ 25-लीटर क्षमता" data-ml="ദീർഘകാലത്തേക്ക് നിലനിൽക്കുന്ന ബാറ്ററിയുമായി 25 ലിറ്റർ ശേഷി">25-liter capacity with long-lasting battery</p>
+                            <div class="product-specs">
+                                <span><i class="fas fa-battery-full"></i> 8Ah Battery</span>
+                                <span><i class="fas fa-tint"></i> 25L Tank</span>
+                                <span><i class="fas fa-clock"></i> 4-6 Hours</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">₹25,000</span>
+                            </div>
+                            <button class="buy-btn" onclick="buyProduct('honda-wjr2425', 'https://www.hondapowerproducts.co.in/')">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span data-en="Buy Now" data-hi="अभी खरीदें" data-ml="ഇപ്പോൾ വാങ്ങുക">Buy Now</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tractor 2 -->
+                    <div class="product-card" data-category="tractors" data-price="650000">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1544467333-0ef0ed830bb9?w=400" alt="Sonalika Tractor">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title" data-en="Sonalika DI 35 Sikander" data-hi="सोनालिका DI 35 सिकंदर" data-ml="സോനാലിക DI 35 സിക്കന്ദർ">Sonalika DI 35 Sikander</h3>
+                            <p class="product-desc" data-en="35 HP compact tractor, ideal for small farms" data-hi="35 HP कॉम्पैक्ट ट्रैक्टर, छोटे खेतों के लिए आदर्श" data-ml="35 HP കോംപാക്റ്റ് ട്രാക്ടർ, ചെറിയ കൃഷിയിടങ്ങൾക്ക് അനുയോജ്യം">35 HP compact tractor, ideal for small farms</p>
+                            <div class="product-specs">
+                                <span><i class="fas fa-cog"></i> 35 HP</span>
+                                <span><i class="fas fa-gas-pump"></i> Diesel</span>
+                                <span><i class="fas fa-award"></i> 5 Year Warranty</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">₹6,50,000</span>
+                                <span class="original-price">₹7,00,000</span>
+                            </div>
+                            <button class="buy-btn" onclick="buyProduct('sonalika-35', 'https://www.sonalika.com/')">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span data-en="Buy Now" data-hi="अभी खरीदें" data-ml="ഇപ്പോൾ വാങ്ങുക">Buy Now</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hand Tools Set -->
+                    <div class="product-card" data-category="tools" data-price="2500">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400" alt="Farming Tools">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title" data-en="Complete Hand Tools Set" data-hi="संपूर्ण हस्त उपकरण सेट" data-ml="സമ്പൂർണ്ണ കൈ ഉപകരണങ്ങൾ സെറ്റ്">Complete Hand Tools Set</h3>
+                            <p class="product-desc" data-en="10-piece professional farming tools kit" data-hi="10-टुकड़ा पेशेवर कृषि उपकरण किट" data-ml="10-പീസ് പ്രൊഫഷണൽ കൃഷി ഉപകരണങ്ങൾ കിറ്റ്">10-piece professional farming tools kit</p>
+                            <div class="product-specs">
+                                <span><i class="fas fa-tools"></i> 10 Tools</span>
+                                <span><i class="fas fa-shield-alt"></i> Steel Build</span>
+                                <span><i class="fas fa-box"></i> Carry Case</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">₹2,500</span>
+                                <span class="original-price">₹3,000</span>
+                            </div>
+                            <button class="buy-btn" onclick="buyProduct('tools-set', 'https://www.farmingtools.in/')">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span data-en="Buy Now" data-hi="अभी खरीदें" data-ml="ഇപ്പോൾ വാങ്ങുക">Buy Now</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button class="load-more-btn" id="loadMoreBtn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span data-en="Load More Products" data-hi="अधिक उत्पाद लोड करें" data-ml="കൂടുതൽ ഉൽപ്പന്നങ്ങൾ ലോഡ് ചെയ്യുക">Load More Products</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Banner -->
+        <section class="shop-features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h4 data-en="Free Delivery" data-hi="मुफ्त डिलीवरी" data-ml="സൗജന്യ ഡെലിവറി">Free Delivery</h4>
+                        <p data-en="On orders above ₹50,000" data-hi="₹50,000 से अधिक के ऑर्डर पर" data-ml="₹50,000-ൽ കൂടുതലുള്ള ഓർഡറുകളിൽ">On orders above ₹50,000</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-tools"></i>
+                        <h4 data-en="Installation Support" data-hi="स्थापना सहायता" data-ml="ഇൻസ്റ്റലേഷൻ സഹായം">Installation Support</h4>
+                        <p data-en="Expert technician assistance" data-hi="विशेषज्ञ तकनीशियन सहायता" data-ml="വിദഗ്ദ്ധരുടെ സാങ്കേതിക സഹായം">Expert technician assistance</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4 data-en="Warranty Protection" data-hi="वारंटी सुरक्षा" data-ml="വാറന്റി സംരക്ഷണം">Warranty Protection</h4>
+                        <p data-en="Comprehensive coverage" data-hi="व्यापक कवरेज" data-ml="സമഗ്രമായ സംരക്ഷണം">Comprehensive coverage</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-headset"></i>
+                        <h4 data-en="24/7 Support" data-hi="24/7 सहायता" data-ml="24/7 പിന്തുണ">24/7 Support</h4>
+                        <p data-en="Always here to help" data-hi="हमेशा मदद के लिए यहाँ" data-ml="സഹായിക്കാൻ എപ്പോഴും ഇവിടെ">Always here to help</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.png" alt="Digital Krishi Officer Logo" class="logo-img">
+                        <span class="logo-text">Digital Krishi Officer</span>
+                    </div>
+                    <p data-en="Your trusted AI farming companion available 24x7" data-hi="आपका विश्वसनीय AI कृषि साथी 24x7 उपलब्ध" data-ml="നിങ്ങളുടെ വിശ്വസനീയമായ AI കൃഷി കൂട്ടുകാരൻ 24x7 ലഭ്യമാണ്">Your trusted AI farming companion available 24x7</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-hi="त्वरित लिंक" data-ml="പെട്ടെന്നുള്ള ലിങ്കുകൾ">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html" data-en="Home" data-hi="होम" data-ml="ഹോം">Home</a></li>
+                        <li><a href="machine-shop.html" data-en="Machine Shop" data-hi="मशीन शॉप" data-ml="യന്ത്രങ്ങളുടെ കട">Machine Shop</a></li>
+                        <li><a href="contact.html" data-en="Contact" data-hi="संपर्क" data-ml="ബന്ധപ്പെടുക">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-en="Contact Info" data-hi="संपर्क जानकारी" data-ml="ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ">Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +91 1800-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> support@digitalkrishi.com</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p data-en="© 2024 Digital Krishi Officer. All rights reserved." data-hi="© 2024 डिजिटल कृषि अधिकारी। सभी अधिकार सुरक्षित।" data-ml="© 2024 ഡിജിറ്റൽ കൃഷി ഓഫീസർ. എല്ലാ അവകാശങ്ങളും സംരക്ഷിച്ചിരിക്കുന്നു.">© 2024 Digital Krishi Officer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+    <script src="shop.js"></script>
+</body>
+</html>

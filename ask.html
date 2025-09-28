@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Krishi Officer - Voice Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c59 50%, #68b684 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.3); }
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .voice-interface {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .voice-button {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #68b684, #4a7c59);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .voice-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .voice-button.listening {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .voice-button.listening::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            animation: ripple 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        .voice-status {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .voice-transcript {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+            font-size: 1.1rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .language-selector {
+            margin-bottom: 20px;
+        }
+
+        .language-selector select {
+            padding: 10px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+
+        .response-area {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .response-area h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .response-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .quick-questions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .question-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .question-card h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .question-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #68b684, #4a7c59);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #4a7c59, #2d5016);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            margin-top: 15px;
+        }
+
+        .volume-slider {
+            width: 150px;
+            height: 5px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #68b684;
+            cursor: pointer;
+        }
+        .homepagebtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4CAF50, #2E7D32); /* green gradient */
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none; /* remove underline */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.homepagebtn i {
+  font-size: 18px; /* icon size */
+  align-items: center;
+}
+
+.homepagebtn:hover {
+  background: linear-gradient(135deg, #66BB6A, #388E3C); /* lighter on hover */
+  transform: translateY(-3px); /* lift effect */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.homepagebtn:active {
+  transform: translateY(-1px); /* smaller lift on click */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+        .tips-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tips-section h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .tips-section ul {
+            color: rgba(255, 255, 255, 0.8);
+            padding-left: 20px;
+        }
+
+        .tips-section li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .voice-button {
+                width: 120px;
+                height: 120px;
+                font-size: 2.5rem;
+            }
+
+            .quick-questions {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Voice visualization */
+        .voice-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            margin: 20px 0;
+            gap: 3px;
+        }
+
+        .voice-bar {
+            width: 4px;
+            background: #68b684;
+            border-radius: 2px;
+            transition: height 0.1s ease;
+        }
+
+        .voice-visualizer.active .voice-bar {
+            animation: voiceWave 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes voiceWave {
+            0% { height: 20px; }
+            100% { height: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+         <a href="index.html" class="homepagebtn">
+                <i class="fa-solid fa-house"></i>
+                Back To Home Page 
+            </a>
+        <div class="header">
+            <h1>
+                <span>🎤</span>
+                Ask Your Krishi Officer
+            </h1>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem;">Voice-enabled agricultural assistant - Speak your questions!</p>
+        </div>
+
+        <div class="voice-interface">
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en-US">English</option>
+                    <option value="hi-IN">हिंदी (Hindi)</option>
+                    <option value="te-IN">తెలుగు (Telugu)</option>
+                    <option value="ta-IN">தமிழ் (Tamil)</option>
+                    <option value="bn-IN">বাংলা (Bengali)</option>
+                    <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
+                    <option value="ml-IN">മലയാളം (Malayalam)</option>
+                    <option value="mr-IN">मराठी (Marathi)</option>
+                    <option value="gu-IN">ગુજરાતી (Gujarati)</option>
+                    <option value="pa-IN">ਪੰਜਾਬੀ (Punjabi)</option>
+                </select>
+            </div>
+
+            <button class="voice-button" id="voiceButton" onclick="toggleRecording()">
+                <span id="voiceIcon">🎤</span>
+            </button>
+
+            <div class="voice-status" id="voiceStatus">Click the microphone to start speaking</div>
+
+            <div class="voice-visualizer" id="voiceVisualizer">
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+            </div>
+
+            <div class="voice-transcript" id="transcript">
+                Your speech will appear here...
+            </div>
+
+            <div class="controls">
+                <button class="btn" onclick="clearTranscript()">
+                    <span>🗑️</span> Clear
+                </button>
+                <button class="btn" onclick="repeatResponse()">
+                    <span>🔄</span> Repeat
+                </button>
+                <button class="btn" id="muteBtn" onclick="toggleMute()">
+                    <span>🔊</span> Mute
+                </button>
+            </div>
+
+            <div class="volume-control">
+                <span>🔊</span>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
+                <span id="volumeValue">70%</span>
+            </div>
+        </div>
+
+        <div class="response-area">
+            <h3><span>🤖</span> Krishi Officer Response</h3>
+            <div class="response-text" id="responseText">
+                Welcome! I'm your digital Krishi Officer. I can help you with:
+                <br><br>
+                • Crop cultivation advice
+                • Pest and disease management
+                • Fertilizer recommendations
+                • Weather-based farming tips
+                • Market price information
+                • Government scheme details
+                <br><br>
+                Just click the microphone and ask your question!
+            </div>
+        </div>
+
+        <div class="quick-questions">
+            <div class="question-card" onclick="askQuestion('What is the best time to plant rice?')">
+                <h4>🌾 Crop Timing</h4>
+                <p>Best planting seasons for different crops</p>
+            </div>
+            <div class="question-card" onclick="askQuestion('How to identify pest attacks on tomato plants?')">
+                <h4>🐛 Pest Control</h4>
+                <p>Identify and manage crop pests</p>
+            </div>
+            <div class="question-card" onclick="askQuestion('What fertilizer should I use for wheat?')">
+                <h4>🌱 Fertilizers</h4>
+                <p>Fertilizer recommendations for crops</p>
+            </div>
+            <div class="question-card" onclick="askQuestion('Tell me about PM-KISAN scheme')">
+                <h4>🏛️ Schemes</h4>
+                <p>Government schemes for farmers</p>
+            </div>
+            <div class="question-card" onclick="askQuestion('What is the current price of onion?')">
+                <h4>📈 Market Prices</h4>
+                <p>Current market rates for crops</p>
+            </div>
+            <div class="question-card" onclick="askQuestion('How to prepare soil for organic farming?')">
+                <h4>🌿 Organic Farming</h4>
+                <p>Organic farming techniques</p>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h3>💡 Voice Assistant Tips</h3>
+            <ul>
+                <li>Speak clearly and at a normal pace</li>
+                <li>Ask specific questions for better answers</li>
+                <li>You can ask follow-up questions</li>
+                <li>Use your local language if preferred</li>
+                <li>Mention your location for localized advice</li>
+                <li>Ask about specific crops, pests, or diseases</li>
+                <li>Inquire about weather-based farming tips</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let recognition;
+        let isRecording = false;
+        let isMuted = false;
+        let currentUtterance = null;
+
+        // Check for speech recognition support
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = document.getElementById('languageSelect').value;
+
+            recognition.onstart = function() {
+                document.getElementById('voiceStatus').textContent = 'Listening... Speak now!';
+                document.getElementById('voiceButton').classList.add('listening');
+                document.getElementById('voiceVisualizer').classList.add('active');
+            };
+
+            recognition.onresult = function(event) {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                document.getElementById('transcript').textContent = transcript;
+            };
+
+            recognition.onend = function() {
+                isRecording = false;
+                document.getElementById('voiceStatus').textContent = 'Click the microphone to start speaking';
+                document.getElementById('voiceButton').classList.remove('listening');
+                document.getElementById('voiceVisualizer').classList.remove('active');
+                document.getElementById('voiceIcon').textContent = '🎤';
+                
+                // Process the transcript
+                const transcript = document.getElementById('transcript').textContent;
+                if (transcript.trim() && transcript !== 'Your speech will appear here...') {
+                    processQuestion(transcript);
+                }
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                document.getElementById('voiceStatus').textContent = 'Error: ' + event.error;
+                isRecording = false;
+                document.getElementById('voiceButton').classList.remove('listening');
+            };
+        } else {
+            document.getElementById('voiceStatus').textContent = 'Speech recognition not supported in this browser';
+            document.getElementById('voiceButton').disabled = true;
+        }
+
+        // Language change handler
+        document.getElementById('languageSelect').addEventListener('change', function() {
+            if (recognition) {
+                recognition.lang = this.value;
+            }
+        });
+
+        // Volume control
+        document.getElementById('volumeSlider').addEventListener('input', function() {
+            const volume = this.value;
+            document.getElementById('volumeValue').textContent = volume + '%';
+            
+            if ('speechSynthesis' in window) {
+                speechSynthesis.volume = volume / 100;
+            }
+        });
+
+        function toggleRecording() {
+            if (!recognition) return;
+
+            if (isRecording) {
+                recognition.stop();
+                isRecording = false;
+                document.getElementById('voiceIcon').textContent = '🎤';
+            } else {
+                recognition.start();
+                isRecording = true;
+                document.getElementById('voiceIcon').textContent = '⏹️';
+            }
+        }
+
+        function clearTranscript() {
+            document.getElementById('transcript').textContent = 'Your speech will appear here...';
+            document.getElementById('responseText').textContent = 'Ask me anything about farming!';
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const muteBtn = document.getElementById('muteBtn');
+            
+            if (isMuted) {
+                muteBtn.innerHTML = '<span>🔇</span> Unmute';
+                if (currentUtterance) {
+                    speechSynthesis.cancel();
+                }
+            } else {
+                muteBtn.innerHTML = '<span>🔊</span> Mute';
+            }
+        }
+
+        function repeatResponse() {
+            const responseText = document.getElementById('responseText').textContent;
+            if (responseText && !isMuted) {
+                speakResponse(responseText);
+            }
+        }
+
+        function askQuestion(question) {
+            document.getElementById('transcript').textContent = question;
+            processQuestion(question);
+        }
+
+        function processQuestion(question) {
+            // Simulate processing
+            document.getElementById('responseText').textContent = 'Processing your question...';
+            
+            setTimeout(() => {
+                const response = generateResponse(question.toLowerCase());
+                document.getElementById('responseText').textContent = response;
+                
+                if (!isMuted) {
+                    speakResponse(response);
+                }
+            }, 1000);
+        }
+
+        function generateResponse(question) {
+            // Simple keyword-based responses (in a real app, this would be AI-powered)
+            const responses = {
+                'rice': 'Rice is best planted during the monsoon season (June-July). Ensure proper water management and use recommended seeds. The field should be well-prepared with organic matter.',
+                'wheat': 'Wheat should be sown in November-December. Use certified seeds, apply balanced fertilizers (NPK), and ensure proper irrigation at critical stages like crown root initiation and grain filling.',
+                'tomato': 'Tomatoes can be grown year-round with proper care. Watch for common pests like whitefly and diseases like late blight. Use resistant varieties and practice crop rotation.',
+                'pest': 'For pest management, use integrated pest management (IPM). Regular monitoring, beneficial insects, and targeted pesticide application when necessary. Always follow safety guidelines.',
+                'fertilizer': 'Use soil testing to determine fertilizer needs. Generally, apply NPK fertilizers based on crop requirements. Organic fertilizers like compost and vermicompost improve soil health.',
+                'pmkisan': 'PM-KISAN provides ₹6000 per year to eligible farmers in three installments. Register through CSC centers or online portal with land documents and Aadhaar card.',
+                'price': 'Market prices vary by location and season. Check local mandi rates, use mobile apps for price updates, and consider value addition for better returns.',
+                'organic': 'Organic farming uses natural inputs. Start with soil health improvement using compost, practice crop rotation, use bio-fertilizers and bio-pesticides, and get organic certification.'
+            };
+
+            for (let keyword in responses) {
+                if (question.includes(keyword)) {
+                    return responses[keyword];
+                }
+            }
+
+            return 'Thank you for your question! For specific agricultural advice, I recommend consulting with local agricultural extension officers or visiting your nearest Krishi Vigyan Kendra (KVK). They can provide personalized guidance based on your location and farming conditions.';
+        }
+
+        function speakResponse(text) {
+            if ('speechSynthesis' in window && !isMuted) {
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                currentUtterance = new SpeechSynthesisUtterance(text);
+                currentUtterance.rate = 0.8;
+                currentUtterance.pitch = 1;
+                currentUtterance.volume = document.getElementById('volumeSlider').value / 100;
+                
+                // Try to use a voice that matches the selected language
+                const selectedLang = document.getElementById('languageSelect').value;
+                const voices = speechSynthesis.getVoices();
+                const voice = voices.find(v => v.lang.startsWith(selectedLang.split('-')[0]));
+                if (voice) {
+                    currentUtterance.voice = voice;
+                }
+
+                speechSynthesis.speak(currentUtterance);
+            }
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.querySelector('.background-animation');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize voices when they're loaded
+        if ('speechSynthesis' in window) {
+            speechSynthesis.onvoiceschanged = function() {
+                // Voices are now loaded
+            };
+        }
+
+        // Initialize
+        createParticles();
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space' && e.ctrlKey) {
+                e.preventDefault();
+                toggleRecording();
+            }
+        });
+    </script>
+</body>
+</html>

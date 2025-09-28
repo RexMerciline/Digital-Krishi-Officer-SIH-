@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Query Chatbot</title>
+    <meta name="description" content="AI-powered chatbot for farmers with voice assistance, weather forecasts, market prices, and crop advice">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0b6b2b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Farmer Chatbot">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-icon">🌱</div>
+            <h2>Digital Krishi officer</h2>
+            <h2>Developed by Crop Coders</h2>
+            <div class="loading-spinner"></div>
+            <p>Loading your farming assistant...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img class="image" src="logo.png" alt="Your Image Description" width="60px">
+                    <h1 class="app-title">Digital Krishi Officer</h1>
+                </div>
+                
+                <!-- Language Switcher -->
+                <div class="language-switcher">
+                    <button id="lang-btn" class="lang-btn" aria-label="Change language">
+                        <i class="fas fa-globe"></i>
+                        <span id="current-lang">EN</span>
+                    </button>
+                    <div id="lang-dropdown" class="lang-dropdown hidden">
+                        <button data-lang="en" class="lang-option">
+                            <span class="flag">🇺🇸</span>
+                            <span>English</span>
+                        </button>
+                        <button data-lang="hi" class="lang-option">
+                            <span class="flag">🇮🇳</span>
+                            <span>हिन्दी</span>
+                        </button>
+                        <button data-lang="ml" class="lang-option">
+                            <span class="flag">🇮🇳</span>
+                            <span>മലയാളം</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-navigation" role="tablist">
+            <button class="tab-btn active" data-tab="chat" role="tab" aria-selected="true" aria-controls="chat-panel">
+                <i class="fas fa-comments"></i>
+                <span data-translate="tab.chat">Chat</span>
+            </button>
+            <!-- <button class="tab-btn" data-tab="weather" role="tab" aria-selected="false" aria-controls="weather-panel">
+                <i class="fas fa-cloud-sun"></i>
+                <span data-translate="tab.weather">Weather</span> -->
+            <!-- </button>
+            <button class="tab-btn" data-tab="market" role="tab" aria-selected="false" aria-controls="market-panel">
+                <i class="fas fa-chart-line"></i>
+                <span data-translate="tab.market">Market</span>
+            </button>
+            <button class="tab-btn" data-tab="calculator" role="tab" aria-selected="false" aria-controls="calculator-panel">
+                <i class="fas fa-calculator"></i>
+                <span data-translate="tab.calculator">Calculator</span>
+            </button> -->
+            <button class="tab-btn" data-tab="voice" role="tab" aria-selected="false" aria-controls="voice-panel">
+                <i class="fas fa-microphone"></i>
+                <span data-translate="tab.voice">Voice</span>
+            </button>
+            <a href="index.html" class="tab-btn" data-tab="calculator" role="tab" aria-selected="false" aria-controls="calculator-panel">
+                <i class="fa-solid fa-house"></i>
+                <span data-translate="homepage">Back to Home Page</span></a>
+        </nav> 
+
+            <!-- Add to your tab navigation after the voice tab
+<button class="tab-btn" data-tab="labor" role="tab" aria-selected="false" aria-controls="labor-panel">
+    <i class="fas fa-users"></i>
+    <span data-translate="tab.labor">Labor</span>
+</button>
+<button class="tab-btn" data-tab="equipment" role="tab" aria-selected="false" aria-controls="equipment-panel">
+    <i class="fas fa-tractor"></i>
+    <span data-translate="tab.equipment">Equipment</span>
+</button> -->
+
+<!-- Add these new tab panels in your main content area -->
+
+<!-- Labor Tab -->
+<div id="labor-panel" class="tab-panel" role="tabpanel" aria-labelledby="labor-tab">
+    <div class="labor-container">
+        <div class="labor-header">
+            <h2 data-translate="labor.title">Contact Agricultural Labor</h2>
+            <p data-translate="labor.subtitle">Find skilled workers for your farming needs</p>
+        </div>
+        
+        <!-- Labor Search -->
+        <div class="labor-search">
+            <div class="search-filters">
+                <select id="labor-type" class="filter-select">
+                    <option value="all">All Labor Types</option>
+                    <option value="field-worker">Field Workers</option>
+                    <option value="tractor-operator">Tractor Operators</option>
+                    <option value="harvester">Harvesting Specialists</option>
+                    <option value="irrigation">Irrigation Technicians</option>
+                    <option value="crop-specialist">Crop Specialists</option>
+                    <option value="pesticide-applicator">Pesticide Applicators</option>
+                </select>
+                
+                <select id="labor-location" class="filter-select">
+                    <option value="nearby">Near Me</option>
+                    <option value="thrissur">Thrissur</option>
+                    <option value="kasargod">Kasargod</option>
+                    <option value="kannur">Kannur</option>
+                    <option value="kottayam">Kottayam</option>
+                    <option value="thalassery">Thalassery</option>
+                </select>
+                
+                <button id="search-labor" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    <span data-translate="labor.search">Search Labor</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Post Labor Requirement -->
+        <div class="post-requirement">
+            <button id="post-labor-need" class="post-btn">
+                <i class="fas fa-plus"></i>
+                <span data-translate="labor.post_requirement">Post Labor Requirement</span>
+            </button>
+        </div>
+        
+        <!-- Labor Listings -->
+        <div id="labor-results" class="labor-results">
+            <!-- Labor cards will be inserted here -->
+        </div>
+        
+        <!-- Labor Requirement Form Modal -->
+        <div id="labor-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 data-translate="labor.post_title">Post Labor Requirement</h3>
+                    <button id="close-labor-modal" class="close-btn">&times;</button>
+                </div>
+                <form id="labor-requirement-form" class="labor-form">
+                    <div class="form-group">
+                        <label for="req-labor-type" data-translate="labor.type">Labor Type</label>
+                        <select id="req-labor-type" required>
+                            <option value="">Select Labor Type</option>
+                            <option value="field-worker">Field Workers</option>
+                            <option value="tractor-operator">Tractor Operators</option>
+                            <option value="harvester">Harvesting Specialists</option>
+                            <option value="irrigation">Irrigation Technicians</option>
+                            <option value="crop-specialist">Crop Specialists</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="req-workers-count" data-translate="labor.workers_needed">Number of Workers</label>
+                            <input type="number" id="req-workers-count" min="1" max="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="req-duration" data-translate="labor.duration">Duration (Days)</label>
+                            <input type="number" id="req-duration" min="1" max="365" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="req-wage" data-translate="labor.daily_wage">Daily Wage (₹)</label>
+                            <input type="number" id="req-wage" min="100" max="2000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="req-start-date" data-translate="labor.start_date">Start Date</label>
+                            <input type="date" id="req-start-date" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="req-location" data-translate="labor.work_location">Work Location</label>
+                        <input type="text" id="req-location" placeholder="Enter farm location" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="req-description" data-translate="labor.description">Work Description</label>
+                        <textarea id="req-description" rows="3" placeholder="Describe the work requirements"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="req-contact" data-translate="labor.contact">Contact Number</label>
+                        <input type="tel" id="req-contact" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-translate="labor.post">Post Requirement</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Equipment Tab -->
+<div id="equipment-panel" class="tab-panel" role="tabpanel" aria-labelledby="equipment-tab">
+    <div class="equipment-container">
+        <div class="equipment-header">
+            <h2 data-translate="equipment.title">Farm Equipment Rental & Sales</h2>
+            <p data-translate="equipment.subtitle">Find tractors, harvesters, and other farming equipment</p>
+        </div>
+        
+        <!-- Equipment Search -->
+        <div class="equipment-search">
+            <div class="search-filters">
+                <select id="equipment-type" class="filter-select">
+                    <option value="all">All Equipment</option>
+                    <option value="tractor">Tractors</option>
+                    <option value="harvester">Harvesters</option>
+                    <option value="plough">Ploughs</option>
+                    <option value="seeder">Seeders</option>
+                    <option value="sprayer">Sprayers</option>
+                    <option value="thresher">Threshers</option>
+                    <option value="cultivator">Cultivators</option>
+                    <option value="irrigation">Irrigation Equipment</option>
+                </select>
+                
+                <select id="equipment-category" class="filter-select">
+                    <option value="all">Rent & Buy</option>
+                    <option value="rent">For Rent</option>
+                    <option value="buy">For Sale</option>
+                </select>
+                
+                <select id="equipment-location" class="filter-select">
+                    <option value="nearby">Near Me</option>
+                    <option value="thrissur">Thrissur</option>
+                    <option value="kasargod">Kasargod</option>
+                    <option value="kannur">Kannur</option>
+                    <option value="kottayam">Kottayam</option>
+                    <option value="thalassery">Thalassery</option>
+                </select>
+                
+                <button id="search-equipment" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    <span data-translate="equipment.search">Search Equipment</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Post Equipment -->
+        <div class="post-equipment">
+            <button id="post-equipment-ad" class="post-btn">
+                <i class="fas fa-plus"></i>
+                <span data-translate="equipment.post_ad">Post Equipment Ad</span>
+            </button>
+        </div>
+        
+        <!-- Equipment Listings -->
+        <div id="equipment-results" class="equipment-results">
+            <!-- Equipment cards will be inserted here -->
+        </div>
+        
+        <!-- Equipment Ad Form Modal -->
+        <div id="equipment-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 data-translate="equipment.post_title">Post Equipment Advertisement</h3>
+                    <button id="close-equipment-modal" class="close-btn">&times;</button>
+                </div>
+                <form id="equipment-ad-form" class="equipment-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ad-equipment-type" data-translate="equipment.type">Equipment Type</label>
+                            <select id="ad-equipment-type" required>
+                                <option value="">Select Equipment</option>
+                                <option value="tractor">Tractor</option>
+                                <option value="harvester">Harvester</option>
+                                <option value="plough">Plough</option>
+                                <option value="seeder">Seeder</option>
+                                <option value="sprayer">Sprayer</option>
+                                <option value="thresher">Thresher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-category" data-translate="equipment.category">Category</label>
+                            <select id="ad-category" required>
+                                <option value="">Select Category</option>
+                                <option value="rent">For Rent</option>
+                                <option value="sale">For Sale</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-title" data-translate="equipment.ad_title">Advertisement Title</label>
+                        <input type="text" id="ad-title" placeholder="e.g., Mahindra 575 DI Tractor for Rent" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ad-brand" data-translate="equipment.brand">Brand</label>
+                            <input type="text" id="ad-brand" placeholder="e.g., Mahindra, John Deere" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-model" data-translate="equipment.model">Model</label>
+                            <input type="text" id="ad-model" placeholder="e.g., 575 DI" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ad-year" data-translate="equipment.year">Year</label>
+                            <input type="number" id="ad-year" min="1990" max="2024" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-hours" data-translate="equipment.hours">Working Hours</label>
+                            <input type="number" id="ad-hours" min="0" placeholder="Total working hours">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ad-price" data-translate="equipment.price">Price (₹)</label>
+                            <input type="number" id="ad-price" min="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-price-type" data-translate="equipment.price_type">Price Type</label>
+                            <select id="ad-price-type" required>
+                                <option value="per-day">Per Day</option>
+                                <option value="per-hour">Per Hour</option>
+                                <option value="per-acre">Per Acre</option>
+                                <option value="fixed">Fixed Price</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-location" data-translate="equipment.location">Location</label>
+                        <input type="text" id="ad-location" placeholder="Enter your location" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-description" data-translate="equipment.description">Description</label>
+                        <textarea id="ad-description" rows="3" placeholder="Describe the equipment condition, features, and terms"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-contact" data-translate="equipment.contact">Contact Number</label>
+                        <input type="tel" id="ad-contact" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-images" data-translate="equipment.images">Equipment Images</label>
+                        <input type="file" id="ad-images" accept="image/*" multiple>
+                        <small class="form-help">Upload up to 5 images of your equipment</small>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-translate="equipment.post">Post Advertisement</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </nav>
+        
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Chat Tab -->
+            <div id="chat-panel" class="tab-panel active" role="tabpanel" aria-labelledby="chat-tab">
+                <div class="chat-container">
+                    <div id="chat-messages" class="chat-messages" aria-live="polite">
+                        <!-- Welcome message will be inserted here -->
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div class="chat-input-container">
+                        <div class="input-row">
+                            <button id="image-upload-btn" class="input-btn" aria-label="Upload image" title="Upload image">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <input type="file" id="image-input" accept="image/*" capture="environment" class="hidden">
+                            
+                            <div class="text-input-container">
+                                <input type="text" id="chat-input" placeholder="Ask about crops, weather, prices..." 
+                                       data-translate-placeholder="chat.placeholder" aria-label="Type your message">
+                                <button id="voice-toggle" class="voice-toggle" aria-label="Voice input" title="Voice input">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                            </div>
+                            
+                            <button id="send-btn" class="send-btn" aria-label="Send message" title="Send message">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Voice Recording Indicator -->
+                        <div id="voice-recording" class="voice-recording hidden">
+                            <div class="voice-indicator">
+                                <div class="voice-wave"></div>
+                                <div class="voice-wave"></div>
+                                <div class="voice-wave"></div>
+                            </div>
+                            <span data-translate="voice.listening">Listening...</span>
+                            <button id="stop-recording" class="stop-recording-btn">
+                                <i class="fas fa-stop"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Image Preview -->
+                        <div id="image-preview" class="image-preview hidden">
+                            <img id="preview-image" src="" alt="Preview">
+                            <button id="remove-image" class="remove-image-btn" aria-label="Remove image">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Tab -->
+            <div id="weather-panel" class="tab-panel" role="tabpanel" aria-labelledby="weather-tab">
+                <div class="weather-container">
+                    <div class="weather-header">
+                        <h2 data-translate="weather.title">Weather Forecast</h2>
+                        <div class="weather-tabs">
+                            <button class="weather-tab-btn active" data-days="5">5 Day</button>
+                            <button class="weather-tab-btn" data-days="10">10 Day</button>
+                            <button class="weather-tab-btn" data-days="15">15 Day</button>
+                        </div>
+                    </div>
+                    
+                    <div class="location-selector">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <select id="location-select">
+                            <option value="delhi">Thrissur, India</option>
+                            <option value="mumbai">Kasargod, India</option>
+                            <option value="bangalore">Kannur, India</option>
+                            <option value="chennai">Thalassery, India</option>
+                            <option value="kolkata">Kottayam, India</option>
+                        </select>
+                        <button id="refresh-weather" class="refresh-btn" aria-label="Refresh weather">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="weather-content" class="weather-content">
+                        <!-- Weather cards will be inserted here -->
+                    </div>
+                    
+                    <div class="weather-advice">
+                        <h3 data-translate="weather.advice_title">Farming Advice</h3>
+                        <div id="weather-advice-content" class="advice-content">
+                            <!-- Weather advice will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Tab -->
+            <div id="market-panel" class="tab-panel" role="tabpanel" aria-labelledby="market-tab">
+                <div class="market-container">
+                    <div class="market-header">
+                        <h2 data-translate="market.title">Market Prices & Predictions</h2>
+                        <div class="market-controls">
+                            <select id="crop-select" class="crop-select">
+                                <option value="rice">Rice</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="sugarcane">Sugarcane</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="maize">Maize</option>
+                                <option value="groundnut">Groundnut</option>
+                            </select>
+                            <select id="market-select" class="market-select">
+                                <option value="Kottayam">Kottayam</option>
+                                <option value="Allapuzha">Allapuzha</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Kozhikode">Kozhikode</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="market-summary">
+                        <div class="current-price-card">
+                            <h3 data-translate="market.current_price">Current Price</h3>
+                            <div class="price-display">
+                                <span id="current-price">₹2,450</span>
+                                <span class="price-unit">per Kilogram</span>
+                            </div>
+                            <div class="price-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+5.2% from yesterday</span>
+                            </div>
+                        </div>
+                        
+                        <div class="prediction-card">
+                            <h3 data-translate="market.prediction">7-Day Prediction</h3>
+                            <div class="prediction-display">
+                                <span id="predicted-price">₹2,580</span>
+                                <span class="price-unit">per Kilogram</span>
+                            </div>
+                            <div class="prediction-confidence">
+                                <span>Confidence: 78%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="price-chart" style="height: 300px;"></canvas>
+                    </div>
+                    
+                    <div class="market-advice">
+                        <h3 data-translate="market.advice_title">Market Advice</h3>
+                        <div id="market-advice-content" class="advice-content">
+                            <!-- Market advice will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Tab -->
+            <div id="calculator-panel" class="tab-panel" role="tabpanel" aria-labelledby="calculator-tab">
+                <div class="calculator-container">
+                    <div class="calculator-header">
+                        <h2 data-translate="calculator.title">Profit Calculator</h2>
+                        <p data-translate="calculator.subtitle">Calculate your crop profits and explore government schemes</p>
+                    </div>
+                    
+                    <form id="profit-form" class="profit-form">
+                        <div class="form-group">
+                            <label for="calc-crop" data-translate="calculator.crop">Crop Type</label>
+                            <select id="calc-crop" name="crop" required>
+                                <option value="rice">Rice</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="sugarcane">Sugarcane</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="maize">Maize</option>
+                                <option value="groundnut">Groundnut</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quantity" data-translate="calculator.quantity">Quantity (Kilograms)</label>
+                                <input type="number" id="quantity" name="quantity" min="0" step="0.1" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cost-price" data-translate="calculator.cost_price">Cost Price (₹/Kilograms)</label>
+                                <input type="number" id="cost-price" name="costPrice" min="0" step="1" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="selling-price" data-translate="calculator.selling_price">Selling Price (₹/Kilograms)</label>
+                                <input type="number" id="selling-price" name="sellingPrice" min="0" step="1" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="scheme-select" data-translate="calculator.scheme">Government Scheme</label>
+                                <select id="scheme-select" name="scheme">
+                                    <option value="">Select Scheme (Optional)</option>
+                                    <!-- Schemes will be loaded dynamically -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="calculate-btn">
+                            <i class="fas fa-calculator"></i>
+                            <span data-translate="calculator.calculate">Calculate Profit</span>
+                        </button>
+                    </form>
+                    
+                    <div id="calculation-result" class="calculation-result hidden">
+                        <h3 data-translate="calculator.result_title">Calculation Result</h3>
+                        <div class="result-cards">
+                            <div class="result-card">
+                                <div class="result-label" data-translate="calculator.total_cost">Total Cost</div>
+                                <div class="result-value" id="total-cost">₹0</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-label" data-translate="calculator.total_revenue">Total Revenue</div>
+                                <div class="result-value" id="total-revenue">₹0</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-label" data-translate="calculator.subsidy">Subsidy</div>
+                                <div class="result-value" id="subsidy-amount">₹0</div>
+                            </div>
+                            <div class="result-card profit-card">
+                                <div class="result-label" data-translate="calculator.net_profit">Net Profit</div>
+                                <div class="result-value" id="net-profit">₹0</div>
+                            </div>
+                        </div>
+                        
+                        <div id="scheme-info" class="scheme-info hidden">
+                            <h4 data-translate="calculator.scheme_details">Scheme Details</h4>
+                            <div id="scheme-description"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Voice Assistant Tab -->
+            <div id="voice-panel" class="tab-panel" role="tabpanel" aria-labelledby="voice-tab">
+                <div class="voice-container">
+                    <div class="voice-header">
+                        <h2 data-translate="voice.title">Voice Assistant</h2>
+                        <p data-translate="voice.subtitle">Speak naturally in English, Hindi, or Malayalam</p>
+                    </div>
+                    
+                    <div class="voice-status">
+                        <div id="voice-assistant" class="voice-assistant">
+                            <div class="assistant-avatar">
+                                <i class="fas fa-microphone-alt"></i>
+                            </div>
+                            <div class="assistant-status">
+                                <span id="assistant-status" data-translate="voice.ready">Ready to listen</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="voice-controls">
+                        <button id="start-voice-assistant" class="voice-control-btn primary">
+                            <i class="fas fa-play"></i>
+                            <span data-translate="voice.start">Start Assistant</span>
+                        </button>
+                        <button id="stop-voice-assistant" class="voice-control-btn secondary hidden">
+                            <i class="fas fa-stop"></i>
+                            <span data-translate="voice.stop">Stop Assistant</span>
+                        </button>
+                    </div>
+                    
+                    <div class="voice-settings">
+                        <h3 data-translate="voice.settings">Voice Settings</h3>
+                        
+                        <div class="setting-group">
+                            <label for="voice-language" data-translate="voice.language">Voice Language</label>
+                            <select id="voice-language">
+                                <option value="en-IN">English (India)</option>
+                                <option value="hi-IN">Hindi (भारत)</option>
+                                <option value="ml-IN">Malayalam (ഇന്ത്യ)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label for="voice-speed" data-translate="voice.speed">Speech Speed</label>
+                            <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1">
+                            <span id="speed-display">1.0x</span>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label for="voice-pitch" data-translate="voice.pitch">Voice Pitch</label>
+                            <input type="range" id="voice-pitch" min="0" max="2" step="0.1" value="1">
+                            <span id="pitch-display">1.0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="voice-commands">
+                        <h3 data-translate="voice.commands_title">Sample Commands</h3>
+                        <div class="commands-list">
+                            <div class="command-item">
+                                <i class="fas fa-cloud-sun"></i>
+                                <span>"Show 5 day weather forecast"</span>
+                            </div>
+                            <div class="command-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>"What is rice price in Delhi?"</span>
+                            </div>
+                            <div class="command-item">
+                                <i class="fas fa-calculator"></i>
+                                <span>"Calculate profit for 100 kg wheat"</span>
+                            </div>
+                            <div class="command-item">
+                                <i class="fas fa-comments"></i>
+                                <span>"Ask about crop diseases"</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 40px;padding: 30px;justify-content: center;font-size: 25px;font-weight: 600;border-radius: 30px 30px 0px 0px;background: radial-gradient(
+    circle at top right, /* shape and position */
+    #247943,  /* start color */
+    #787a01,#007f04   /* end color */
+);
+color:#FFFFFF">
+                <!-- Footer Section -->
+<!-- <footer style="color:#ffffff; text-align:center; padding:15px 0; margin-top:20px; font-family:sans-serif;">
+    <p style="margin:0; font-size:50px;">
+        &copy; Crop Coders 1 | SIH 2025. All Rights Reserved.
+    </p>
+</footer> -->
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Krishi Assistant - Digital Krishi Officer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c59 50%, #68b684 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            height: 700px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5016, #4a7c59);
+            color: white;
+            padding: 25px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            to {
+                left: 100%;
+            }
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .chat-container {
+            height: calc(100% - 140px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background: #f8fffe;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            animation: messageSlide 0.5s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.user .message-slide {
+            animation: messageSlideRight 0.5s ease-out;
+        }
+
+        @keyframes messageSlideRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .message-bubble {
+            display: inline-block;
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #4a7c59, #2d5016);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.bot .message-bubble {
+            background: white;
+            color: #333;
+            border: 2px solid #e8f5e8;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-time {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .image-preview:hover {
+            transform: scale(1.02);
+        }
+
+        .input-container {
+            padding: 20px 30px;
+            background: white;
+            border-top: 2px solid #e8f5e8;
+            position: relative;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f8fffe;
+            border: 2px solid #e8f5e8;
+            border-radius: 25px;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #4a7c59;
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+        }
+
+        .message-input::placeholder {
+            color: #999;
+        }
+
+        .input-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .upload-btn, .send-btn {
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #68b684, #4a7c59);
+            color: white;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #2d5016, #4a7c59);
+            color: white;
+        }
+
+        .upload-btn:hover, .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .upload-btn:active, .send-btn:active {
+            transform: scale(0.95);
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #e8f5e8;
+            border-radius: 20px;
+            border-bottom-left-radius: 5px;
+            max-width: 70%;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4a7c59;
+            animation: typingBounce 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 50px 20px;
+            color: #666;
+        }
+
+        .welcome-icon {
+            font-size: 60px;
+            color: #4a7c59;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .suggestion-chip {
+            background: #e8f5e8;
+            color: #2d5016;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border: 2px solid transparent;
+        }
+
+        .suggestion-chip:hover {
+            background: #4a7c59;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                height: 100vh;
+                border-radius: 0;
+                max-width: 100%;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .chat-messages {
+                padding: 20px;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+            }
+
+            .input-container {
+                padding: 15px 20px;
+            }
+
+            .welcome-message {
+                padding: 30px 20px;
+            }
+
+            .welcome-icon {
+                font-size: 50px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #4a7c59;
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #2d5016;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="floating-particles" id="particles"></div>
+        
+        <header class="header">
+            <h1>
+                <i class="fas fa-robot"></i>
+                AI Krishi Assistant
+            </h1>
+            <div class="subtitle">Your Digital Agriculture Expert - Ask me anything about farming!</div>
+        </header>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <div class="welcome-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h2>Welcome to AI Krishi Assistant!</h2>
+                    <p>I'm here to help you with all your farming questions. You can ask me about crops, weather, diseases, or upload images of your plants for analysis.</p>
+                    
+                    <div class="suggestions">
+                        <div class="suggestion-chip" onclick="sendSuggestion('What crops should I plant this season?')">
+                            Crop Recommendations
+                        </div>
+                        <div class="suggestion-chip" onclick="sendSuggestion('How to identify plant diseases?')">
+                            Disease Identification
+                        </div>
+                        <div class="suggestion-chip" onclick="sendSuggestion('Best farming practices for organic farming')">
+                            Organic Farming
+                        </div>
+                        <div class="suggestion-chip" onclick="sendSuggestion('Weather prediction for farming')">
+                            Weather Guide
+                        </div>
+                    </div>
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        class="message-input" 
+                        id="messageInput" 
+                        placeholder="Ask me about farming, upload plant images, or describe your problem..."
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <div class="input-actions">
+                        <div class="file-input-wrapper">
+                            <button class="upload-btn" title="Upload Image">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <input 
+                                type="file" 
+                                class="file-input" 
+                                id="fileInput" 
+                                accept="image/*" 
+                                onchange="handleFileUpload(event)"
+                            >
+                        </div>
+                        <button class="send-btn" onclick="sendMessage()" title="Send Message">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize particles animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Chat functionality
+        let isFirstMessage = true;
+
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function clearWelcomeMessage() {
+            if (isFirstMessage) {
+                const welcomeMessage = document.querySelector('.welcome-message');
+                if (welcomeMessage) {
+                    welcomeMessage.style.animation = 'fadeOut 0.3s ease-out forwards';
+                    setTimeout(() => {
+                        welcomeMessage.remove();
+                    }, 300);
+                }
+                isFirstMessage = false;
+            }
+        }
+
+        function addMessage(content, sender, imageUrl = null) {
+            clearWelcomeMessage();
+            
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            let imageHTML = '';
+            if (imageUrl) {
+                imageHTML = `<img src="${imageUrl}" alt="Uploaded image" class="image-preview">`;
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="message-slide">
+                    <div class="message-bubble">
+                        ${content}
+                        ${imageHTML}
+                    </div>
+                    <div class="message-time">${getCurrentTime()}</div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.style.display = 'block';
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.style.display = 'none';
+        }
+
+        function generateBotResponse(userMessage, hasImage = false) {
+            const responses = {
+                crop: [
+                    "Based on your location and season, I recommend considering crops like wheat, rice, or corn. The soil type and climate conditions are crucial factors. Would you like specific recommendations for your area?",
+                    "For this season, legumes like beans and peas are excellent choices as they fix nitrogen in the soil. What's your soil type and rainfall pattern?",
+                ],
+                disease: [
+                    "Plant diseases can be identified by symptoms like yellowing leaves, spots, wilting, or unusual growth. Could you describe what you're observing or upload an image?",
+                    "Common signs include leaf discoloration, stunted growth, and pest damage. Early detection is key for effective treatment.",
+                ],
+                weather: [
+                    "Weather patterns significantly impact farming decisions. I can help you understand optimal planting times, irrigation needs, and harvest timing based on weather forecasts.",
+                    "Monitoring temperature, rainfall, and humidity helps in planning farming activities. What specific weather information do you need?",
+                ],
+                organic: [
+                    "Organic farming focuses on natural methods like composting, crop rotation, and biological pest control. It's sustainable and produces healthier crops.",
+                    "Key practices include using organic fertilizers, avoiding synthetic pesticides, and maintaining soil health through natural methods.",
+                ],
+                image: [
+                    "I can see the image you've uploaded! Based on what I observe, this appears to be related to plant health. Let me analyze the visual symptoms and provide recommendations.",
+                    "Thank you for sharing the image. I can help identify potential issues and suggest appropriate treatments or care methods.",
+                ],
+                default: [
+                    "That's a great question about farming! I'm here to help with crop management, disease identification, weather planning, and sustainable farming practices. Could you provide more details?",
+                    "I'd be happy to assist you with your agricultural needs. Whether it's about planting, harvesting, pest control, or soil management, I'm here to help!",
+                ]
+            };
+
+            if (hasImage) {
+                return responses.image[Math.floor(Math.random() * responses.image.length)];
+            }
+
+            const message = userMessage.toLowerCase();
+            if (message.includes('crop') || message.includes('plant') || message.includes('seed')) {
+                return responses.crop[Math.floor(Math.random() * responses.crop.length)];
+            } else if (message.includes('disease') || message.includes('pest') || message.includes('problem')) {
+                return responses.disease[Math.floor(Math.random() * responses.disease.length)];
+            } else if (message.includes('weather') || message.includes('rain') || message.includes('season')) {
+                return responses.weather[Math.floor(Math.random() * responses.weather.length)];
+            } else if (message.includes('organic') || message.includes('natural') || message.includes('sustainable')) {
+                return responses.organic[Math.floor(Math.random() * responses.organic.length)];
+            } else {
+                return responses.default[Math.floor(Math.random() * responses.default.length)];
+            }
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            messageInput.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate bot response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                const botResponse = generateBotResponse(message);
+                addMessage(botResponse, 'bot');
+            }, 1500 + Math.random() * 1000);
+        }
+
+        function sendSuggestion(suggestion) {
+            const messageInput = document.getElementById('messageInput');
+            messageInput.value = suggestion;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (!file.type.startsWith('image/')) {
+                alert('Please upload an image file only.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                addMessage('I\'ve uploaded an image for analysis. Can you help me identify any issues?', 'user', imageUrl);
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate bot response for image analysis
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const botResponse = generateBotResponse('', true);
+                    addMessage(botResponse, 'bot');
+                }, 2000 + Math.random() * 1000);
+            };
+            reader.readAsDataURL(file);
+            
+            // Clear the file input
+            event.target.value = '';
+        }
+
+        // Add CSS animation for fade out
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Focus on input
+            document.getElementById('messageInput').focus();
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.upload-btn, .send-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

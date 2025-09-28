@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Krishi Officer - Market Prices</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c59 50%, #68b684 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.3); }
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            min-width: 200px;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-select {
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #68b684, #4a7c59);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #4a7c59, #2d5016);
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .price-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: scaleIn 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #68b684, transparent);
+            animation: shimmerLine 2s infinite;
+        }
+
+        @keyframes shimmerLine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .crop-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .current-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #68b684;
+        }
+
+        .price-change {
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .price-up {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .price-down {
+            background: #f44336;
+            color: white;
+        }
+
+        .price-stable {
+            background: #ff9800;
+            color: white;
+        }
+
+        .market-info {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chart-container h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .price-trends {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .trend-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .trend-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .trend-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .homepagebtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4CAF50, #2E7D32); /* green gradient */
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none; /* remove underline */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.homepagebtn i {
+  font-size: 18px; /* icon size */
+}
+
+.homepagebtn:hover {
+  background: linear-gradient(135deg, #66BB6A, #388E3C); /* lighter on hover */
+  transform: translateY(-3px); /* lift effect */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.homepagebtn:active {
+  transform: translateY(-1px); /* smaller lift on click */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+        .trend-title {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .trend-value {
+            color: #68b684;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .alerts-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .alert-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .alert-high { border-left-color: #4CAF50; background: rgba(76, 175, 80, 0.1); }
+        .alert-low { border-left-color: #f44336; background: rgba(244, 67, 54, 0.1); }
+        .alert-info { border-left-color: #2196F3; background: rgba(33, 150, 243, 0.1); }
+
+        .filter-chips {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-chip:hover, .filter-chip.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        .charts{
+            max-height: 900px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-input, .search-select {
+                width: 100%;
+            }
+
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="homepagebtn">
+                <i class="fa-solid fa-house"></i>
+                Back To Home Page 
+            </a>
+            <h1>
+                <span>📈</span>
+                Market Price Tracking
+            </h1>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem;">Real-time agricultural commodity prices and market trends</p>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search crops, vegetables, fruits..." id="searchInput">
+            <select class="search-select" id="locationSelect">
+                <option value="">Select Location</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="bangalore">Bangalore</option>
+                <option value="chennai">Chennai</option>
+                <option value="kolkata">Kolkata</option>
+                <option value="pune">Pune</option>
+            </select>
+            <select class="search-select" id="categorySelect">
+                <option value="">All Categories</option>
+                <option value="cereals">Cereals</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="fruits">Fruits</option>
+                <option value="pulses">Pulses</option>
+                <option value="spices">Spices</option>
+            </select>
+            <button class="btn" onclick="searchPrices()">
+                <span>🔍</span> Search
+            </button>
+        </div>
+
+        <div class="filter-chips">
+            <div class="filter-chip active" onclick="filterByCategory('all')">All</div>
+            <div class="filter-chip" onclick="filterByCategory('cereals')">🌾 Cereals</div>
+            <div class="filter-chip" onclick="filterByCategory('vegetables')">🥕 Vegetables</div>
+            <div class="filter-chip" onclick="filterByCategory('fruits')">🍎 Fruits</div>
+            <div class="filter-chip" onclick="filterByCategory('pulses')">🫘 Pulses</div>
+            <div class="filter-chip" onclick="filterByCategory('spices')">🌶️ Spices</div>
+        </div>
+
+        <div class="price-trends">
+            <div class="trend-card">
+                <div class="trend-icon">📊</div>
+                <div class="trend-title">Average Price Index</div>
+                <div class="trend-value">+2.5%</div>
+            </div>
+            <div class="trend-card">
+                <div class="trend-icon">🔥</div>
+                <div class="trend-title">Highest Gainer</div>
+                <div class="trend-value">Tomato (+15%)</div>
+            </div>
+            <div class="trend-card">
+                <div class="trend-icon">📉</div>
+                <div class="trend-title">Biggest Drop</div>
+                <div class="trend-value">Onion (-8%)</div>
+            </div>
+            <div class="trend-card">
+                <div class="trend-icon">🎯</div>
+                <div class="trend-title">Most Traded</div>
+                <div class="trend-value">Rice</div>
+            </div>
+        </div>
+
+        <div class="price-grid" id="priceGrid">
+            <!-- Price cards will be dynamically populated -->
+        </div>
+
+        <div class="chart-container">
+            <h3>📈 Price Trends (Last 7 Days)</h3>
+            <canvas id="priceChart" class="charts" width="400" height="200"></canvas>
+        </div>
+
+        <div class="alerts-section">
+            <h3 style="color: white; margin-bottom: 20px;">🔔 Price Alerts</h3>
+            <div class="alert-item alert-high">
+                <strong style="color: #4CAF50;">HIGH PRICE ALERT</strong><br>
+                Tomato prices increased by 15% in Delhi markets. Current rate: ₹45/kg
+            </div>
+            <div class="alert-item alert-low">
+                <strong style="color: #f44336;">LOW PRICE ALERT</strong><br>
+                Onion prices dropped by 8% in Mumbai. Good time to buy. Current rate: ₹28/kg
+            </div>
+            <div class="alert-item alert-info">
+                <strong style="color: #2196F3;">MARKET INFO</strong><br>
+                Rice supply expected to increase next week. Prices may stabilize around ₹42/kg
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Sample market data
+        const marketData = [
+            {
+                name: "Rice",
+                icon: "🌾",
+                price: 42,
+                change: +2.5,
+                category: "cereals",
+                market: "Delhi Wholesale Market",
+                unit: "kg",
+                lastUpdated: "2 hours ago"
+            },
+            {
+                name: "Wheat",
+                icon: "🌾",
+                price: 28,
+                change: +1.2,
+                category: "cereals",
+                market: "Mumbai APMC",
+                unit: "kg",
+                lastUpdated: "1 hour ago"
+            },
+            {
+                name: "Tomato",
+                icon: "🍅",
+                price: 45,
+                change: +15.3,
+                category: "vegetables",
+                market: "Bangalore Market",
+                unit: "kg",
+                lastUpdated: "30 min ago"
+            },
+            {
+                name: "Onion",
+                icon: "🧅",
+                price: 28,
+                change: -8.2,
+                category: "vegetables",
+                market: "Pune Wholesale",
+                unit: "kg",
+                lastUpdated: "45 min ago"
+            },
+            {
+                name: "Potato",
+                icon: "🥔",
+                price: 22,
+                change: -2.1,
+                category: "vegetables",
+                market: "Delhi Azadpur",
+                unit: "kg",
+                lastUpdated: "1 hour ago"
+            },
+            {
+                name: "Apple",
+                icon: "🍎",
+                price: 120,
+                change: +3.4,
+                category: "fruits",
+                market: "Kashmir Direct",
+                unit: "kg",
+                lastUpdated: "3 hours ago"
+            },
+            {
+                name: "Banana",
+                icon: "🍌",
+                price: 35,
+                change: +0.8,
+                category: "fruits",
+                market: "Tamil Nadu",
+                unit: "dozen",
+                lastUpdated: "2 hours ago"
+            },
+            {
+                name: "Turmeric",
+                icon: "🌶️",
+                price: 180,
+                change: +5.2,
+                category: "spices",
+                market: "Erode Market",
+                unit: "kg",
+                lastUpdated: "4 hours ago"
+            },
+            {
+                name: "Black Gram",
+                icon: "🫘",
+                price: 95,
+                change: -1.5,
+                category: "pulses",
+                market: "Indore Mandi",
+                unit: "kg",
+                lastUpdated: "2 hours ago"
+            }
+        ];
+
+        let currentData = [...marketData];
+
+        function createPriceCard(item) {
+            const changeClass = item.change > 0 ? 'price-up' : item.change < 0 ? 'price-down' : 'price-stable';
+            const changeSymbol = item.change > 0 ? '+' : '';
+            
+            return `
+                <div class="price-card" data-category="${item.category}">
+                    <div class="crop-name">
+                        <span>${item.icon}</span>
+                        ${item.name}
+                    </div>
+                    <div class="price-info">
+                        <div class="current-price">₹${item.price}/${item.unit}</div>
+                        <div class="price-change ${changeClass}">
+                            ${changeSymbol}${item.change.toFixed(1)}%
+                        </div>
+                    </div>
+                    <div class="market-info">
+                        📍 ${item.market}<br>
+                        🕒 Updated: ${item.lastUpdated}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPriceCards() {
+            const grid = document.getElementById('priceGrid');
+            grid.innerHTML = currentData.map(createPriceCard).join('');
+        }
+
+        function filterByCategory(category) {
+            const chips = document.querySelectorAll('.filter-chip');
+            chips.forEach(chip => chip.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (category === 'all') {
+                currentData = [...marketData];
+            } else {
+                currentData = marketData.filter(item => item.category === category);
+            }
+            renderPriceCards();
+        }
+
+        function searchPrices() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const location = document.getElementById('locationSelect').value;
+            const category = document.getElementById('categorySelect').value;
+
+            currentData = marketData.filter(item => {
+                const matchesSearch = !searchTerm || item.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = !category || item.category === category;
+                // In a real app, you'd filter by location too
+                return matchesSearch && matchesCategory;
+            });
+
+            renderPriceCards();
+        }
+
+        // Initialize chart
+        function createPriceChart() {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['7 days ago', '6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'Yesterday', 'Today'],
+                    datasets: [
+                        {
+                            label: 'Rice (₹/kg)',
+                            data: [38, 39, 40, 41, 40, 41, 42, 42],
+                            borderColor: '#68b684',
+                            backgroundColor: 'rgba(104, 182, 132, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Tomato (₹/kg)',
+                            data: [32, 34, 36, 38, 40, 42, 44, 45],
+                            borderColor: '#ff6b6b',
+                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Onion (₹/kg)',
+                            data: [35, 34, 32, 31, 30, 29, 28, 28],
+                            borderColor: '#4ecdc4',
+                            backgroundColor: 'rgba(78, 205, 196, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.querySelector('.background-animation');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Auto-refresh prices every 30 seconds
+        function autoRefreshPrices() {
+            setInterval(() => {
+                marketData.forEach(item => {
+                    // Simulate price changes
+                    const change = (Math.random() - 0.5) * 2; // -1 to +1
+                    item.change = Math.round((item.change + change) * 10) / 10;
+                    item.price = Math.max(1, Math.round(item.price * (1 + change / 100)));
+                });
+                
+                if (currentData.length === marketData.length) {
+                    currentData = [...marketData];
+                }
+                renderPriceCards();
+            }, 30000);
+        }
+
+        // Initialize
+        createParticles();
+        renderPriceCards();
+        createPriceChart();
+        autoRefreshPrices();
+
+        // Add search functionality on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchPrices();
+            }
+        });
+    </script>
+</body>
+</html>
