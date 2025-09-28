@@ -1622,3 +1622,453 @@ body {
         page-break-after: always;
     }
 }
+/* Labor and Equipment Styles */
+.labor-container,
+.equipment-container {
+    max-width: 100%;
+}
+
+.labor-header,
+.equipment-header {
+    margin-bottom: var(--space-6);
+    text-align: center;
+}
+
+.labor-header h2,
+.equipment-header h2 {
+    color: var(--gray-800);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+}
+
+.labor-header p,
+.equipment-header p {
+    color: var(--gray-600);
+    font-size: var(--font-size-base);
+}
+
+/* Search Filters */
+.labor-search,
+.equipment-search {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    padding: var(--space-5);
+    margin-bottom: var(--space-6);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+}
+
+.search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+    align-items: end;
+}
+
+.filter-select {
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-lg);
+    background: var(--white);
+    font-size: var(--font-size-base);
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: border-color var(--transition-fast);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(11, 107, 43, 0.1);
+}
+
+.search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    background: var(--primary-green);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius-lg);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.search-btn:hover {
+    background: var(--dark-green);
+    transform: translateY(-1px);
+}
+
+/* Post Requirement/Ad Button */
+.post-requirement,
+.post-equipment {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-6);
+}
+
+.post-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    background: var(--accent-yellow);
+    color: var(--dark-green);
+    border: none;
+    border-radius: var(--border-radius-xl);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-md);
+}
+
+.post-btn:hover {
+    background: #f4b942;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Results Grid */
+.labor-results,
+.equipment-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--space-5);
+}
+
+/* Labor Card */
+.labor-card {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+    transition: transform var(--transition-fast);
+    position: relative;
+}
+
+.labor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.labor-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: var(--space-4);
+}
+
+.labor-type {
+    background: var(--primary-green);
+    color: var(--white);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.labor-availability {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--success-green);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.labor-details {
+    margin-bottom: var(--space-4);
+}
+
+.labor-name {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: var(--space-2);
+}
+
+.labor-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+}
+
+.labor-location {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+}
+
+.labor-description {
+    color: var(--gray-700);
+    line-height: 1.5;
+    margin-bottom: var(--space-4);
+}
+
+.labor-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.labor-wage {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--primary-green);
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: var(--primary-green);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius-lg);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.contact-btn:hover {
+    background: var(--dark-green);
+}
+
+/* Equipment Card */
+.equipment-card {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    transition: transform var(--transition-fast);
+}
+
+.equipment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.equipment-image {
+    width: 100%;
+    height: 200px;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--gray-400);
+    position: relative;
+}
+
+.equipment-category {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.category-rent {
+    background: var(--accent-yellow);
+    color: var(--dark-green);
+}
+
+.category-sale {
+    background: var(--primary-green);
+    color: var(--white);
+}
+
+.equipment-content {
+    padding: var(--space-5);
+}
+
+.equipment-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: var(--space-2);
+}
+
+.equipment-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+}
+
+.equipment-location {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+}
+
+.equipment-description {
+    color: var(--gray-700);
+    line-height: 1.5;
+    margin-bottom: var(--space-4);
+    font-size: var(--font-size-sm);
+}
+
+.equipment-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.equipment-price {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--primary-green);
+}
+
+.price-unit {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    font-weight: 400;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-5) var(--space-5) var(--space-3);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.modal-header h3 {
+    color: var(--gray-800);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: var(--font-size-2xl);
+    color: var(--gray-400);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--gray-600);
+}
+
+.labor-form,
+.equipment-form {
+    padding: var(--space-5);
+}
+
+.submit-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    background: var(--primary-green);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius-lg);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.submit-btn:hover {
+    background: var(--dark-green);
+    transform: translateY(-1px);
+}
+
+.form-help {
+    display: block;
+    color: var(--gray-500);
+    font-size: var(--font-size-xs);
+    margin-top: var(--space-1);
+}
+
+/* Responsive Design for new features */
+@media (max-width: 768px) {
+    .search-filters {
+        grid-template-columns: 1fr;
+    }
+    
+    .labor-results,
+    .equipment-results {
+        grid-template-columns: 1fr;
+    }
+    
+    .labor-info,
+    .equipment-specs {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: var(--space-4);
+    }
+}
+
+
