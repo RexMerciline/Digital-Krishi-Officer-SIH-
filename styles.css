@@ -317,6 +317,9 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+    position: relative;
+    right: 528px;
+    top: 50px;
 }
 
 .tab-panel.active {
