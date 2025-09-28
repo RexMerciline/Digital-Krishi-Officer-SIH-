@@ -142,6 +142,516 @@ const translations = {
     }
 };
 
+// Add to your translations object
+const laborEquipmentTranslations = {
+    en: {
+        'tab.labor': 'Labor',
+        'tab.equipment': 'Equipment',
+        'labor.title': 'Contact Agricultural Labor',
+        'labor.subtitle': 'Find skilled workers for your farming needs',
+        'labor.search': 'Search Labor',
+        'labor.post_requirement': 'Post Labor Requirement',
+        'labor.post_title': 'Post Labor Requirement',
+        'labor.type': 'Labor Type',
+        'labor.workers_needed': 'Number of Workers',
+        'labor.duration': 'Duration (Days)',
+        'labor.daily_wage': 'Daily Wage (₹)',
+        'labor.start_date': 'Start Date',
+        'labor.work_location': 'Work Location',
+        'labor.description': 'Work Description',
+        'labor.contact': 'Contact Number',
+        'labor.post': 'Post Requirement',
+        'equipment.title': 'Farm Equipment Rental & Sales',
+        'equipment.subtitle': 'Find tractors, harvesters, and other farming equipment',
+        'equipment.search': 'Search Equipment',
+        'equipment.post_ad': 'Post Equipment Ad',
+        'equipment.post_title': 'Post Equipment Advertisement',
+        'equipment.type': 'Equipment Type',
+        'equipment.category': 'Category',
+        'equipment.ad_title': 'Advertisement Title',
+        'equipment.brand': 'Brand',
+        'equipment.model': 'Model',
+        'equipment.year': 'Year',
+        'equipment.hours': 'Working Hours',
+        'equipment.price': 'Price (₹)',
+        'equipment.price_type': 'Price Type',
+        'equipment.location': 'Location',
+        'equipment.description': 'Description',
+        'equipment.contact': 'Contact Number',
+        'equipment.images': 'Equipment Images',
+        'equipment.post': 'Post Advertisement'
+    },
+    hi: {
+        'tab.labor': 'मजदूर',
+        'tab.equipment': 'उपकरण',
+        'labor.title': 'कृषि मजदूरों से संपर्क करें',
+        'labor.subtitle': 'अपनी खेती की जरूरतों के लिए कुशल मजदूर खोजें',
+        'equipment.title': 'कृषि उपकरण किराया और बिक्री',
+        'equipment.subtitle': 'ट्रैक्टर, हार्वेस्टर और अन्य खेती के उपकरण खोजें'
+    },
+    ml: {
+        'tab.labor': 'തൊഴിലാളി',
+        'tab.equipment': 'ഉപകരണങ്ങൾ',
+        'labor.title': 'കാർഷിക തൊഴിലാളികളെ ബന്ധപ്പെടുക',
+        'labor.subtitle': 'നിങ്ങളുടെ കൃഷിയുടെ ആവശ്യങ്ങൾക്കായി വിദഗ്ധരായ തൊഴിലാളികളെ കണ്ടെത്തുക',
+        'equipment.title': 'കാർഷിക ഉപകരണ വാടകയും വിൽപ്പനയും',
+        'equipment.subtitle': 'ട്രാക്ടറുകൾ, ഹാർവെസ്റ്ററുകൾ, മറ്റ് കൃഷി ഉപകരണങ്ങൾ കണ്ടെത്തുക'
+    }
+};
+
+// Merge with existing translations
+Object.keys(laborEquipmentTranslations).forEach(lang => {
+    if (translations[lang]) {
+        Object.assign(translations[lang], laborEquipmentTranslations[lang]);
+    }
+});
+
+// Mock data for labor and equipment
+const mockLaborData = [
+    {
+        id: 1,
+        name: 'Ravi Kumar',
+        type: 'tractor-operator',
+        experience: 8,
+        location: 'Thrissur',
+        dailyWage: 800,
+        available: true,
+        rating: 4.5,
+        contact: '+91 98765 43210',
+        description: 'Experienced tractor operator with 8 years experience. Expert in ploughing, sowing, and harvesting operations.',
+        skills: ['Ploughing', 'Sowing', 'Harvesting']
+    },
+    {
+        id: 2,
+        name: 'Suresh Team',
+        type: 'field-worker',
+        experience: 5,
+        location: 'Kottayam',
+        dailyWage: 500,
+        available: true,
+        rating: 4.2,
+        contact: '+91 87654 32109',
+        description: 'Team of 4 experienced field workers available for all types of farm work.',
+        skills: ['Weeding', 'Transplanting', 'Harvesting']
+    },
+    {
+        id: 3,
+        name: 'Mohammad Ali',
+        type: 'irrigation',
+        experience: 12,
+        location: 'Kannur',
+        dailyWage: 700,
+        available: true,
+        rating: 4.8,
+        contact: '+91 76543 21098',
+        description: 'Irrigation specialist with expertise in drip irrigation and sprinkler systems.',
+        skills: ['Drip Irrigation', 'Sprinklers', 'Pump Maintenance']
+    }
+];
+
+const mockEquipmentData = [
+    {
+        id: 1,
+        title: 'Mahindra 575 DI Tractor',
+        type: 'tractor',
+        brand: 'Mahindra',
+        model: '575 DI',
+        year: 2020,
+        hours: 1200,
+        category: 'rent',
+        price: 1500,
+        priceType: 'per-day',
+        location: 'Thrissur',
+        contact: '+91 98765 43210',
+        description: 'Well-maintained Mahindra tractor perfect for all farming operations. Includes rotavator attachment.',
+        image: '🚜',
+        rating: 4.5,
+        availability: true
+    },
+    {
+        id: 2,
+        title: 'Rice Harvester for Sale',
+        type: 'harvester',
+        brand: 'Indo Farm',
+        model: 'IH-484',
+        year: 2019,
+        hours: 800,
+        category: 'sale',
+        price: 450000,
+        priceType: 'fixed',
+        location: 'Kottayam',
+        contact: '+91 87654 32109',
+        description: 'Excellent condition rice harvester. Low working hours, well maintained.',
+        image: '🌾',
+        rating: 4.3,
+        availability: true
+    },
+    {
+        id: 3,
+        title: 'Rotary Tiller Rental',
+        type: 'cultivator',
+        brand: 'Fieldking',
+        model: 'Mega T',
+        year: 2021,
+        hours: 500,
+        category: 'rent',
+        price: 800,
+        priceType: 'per-day',
+        location: 'Kasargod',
+        contact: '+91 76543 21098',
+        description: 'Heavy duty rotary tiller suitable for all soil types. Perfect for land preparation.',
+        image: '🔧',
+        rating: 4.7,
+        availability: true
+    }
+];
+
+// Labor Functions
+function initializeLaborFeatures() {
+    setupLaborEventListeners();
+    loadLaborData();
+}
+
+function setupLaborEventListeners() {
+    $('#search-labor')?.addEventListener('click', searchLabor);
+    $('#post-labor-need')?.addEventListener('click', openLaborModal);
+    $('#close-labor-modal')?.addEventListener('click', closeLaborModal);
+    $('#labor-requirement-form')?.addEventListener('submit', submitLaborRequirement);
+    
+    // Close modal on backdrop click
+    $('#labor-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'labor-modal') {
+            closeLaborModal();
+        }
+    });
+}
+
+function searchLabor() {
+    const laborType = $('#labor-type').value;
+    const location = $('#labor-location').value;
+    
+    showToast('Searching for available labor...', 'success');
+    
+    // Simulate search delay
+    setTimeout(() => {
+        loadLaborData(laborType, location);
+    }, 1000);
+}
+
+function loadLaborData(type = 'all', location = 'nearby') {
+    let filteredData = mockLaborData;
+    
+    if (type !== 'all') {
+        filteredData = filteredData.filter(labor => labor.type === type);
+    }
+    
+    if (location !== 'nearby') {
+        filteredData = filteredData.filter(labor => 
+            labor.location.toLowerCase() === location.toLowerCase()
+        );
+    }
+    
+    displayLaborResults(filteredData);
+}
+
+function displayLaborResults(laborData) {
+    const container = $('#labor-results');
+    
+    if (laborData.length === 0) {
+        container.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search" style="font-size: 3rem; color: var(--gray-400); margin-bottom: 1rem;"></i>
+                <h3>No labor found</h3>
+                <p>Try adjusting your search filters</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = laborData.map(labor => `
+        <div class="labor-card">
+            <div class="labor-card-header">
+                <span class="labor-type">${formatLaborType(labor.type)}</span>
+                ${labor.available ? '<div class="labor-availability"><i class="fas fa-circle"></i> Available</div>' : ''}
+            </div>
+            
+            <div class="labor-details">
+                <div class="labor-name">${labor.name}</div>
+                <div class="labor-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>${labor.location}</span>
+                </div>
+                <div class="labor-info">
+                    <div><strong>Experience:</strong> ${labor.experience} years</div>
+                    <div><strong>Rating:</strong> ⭐ ${labor.rating}</div>
+                </div>
+                <div class="labor-description">${labor.description}</div>
+            </div>
+            
+            <div class="labor-footer">
+                <div class="labor-wage">₹${labor.dailyWage}/day</div>
+                <button class="contact-btn" onclick="contactLabor('${labor.contact}', '${labor.name}')">
+                    <i class="fas fa-phone"></i>
+                    Contact
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function formatLaborType(type) {
+    const types = {
+        'field-worker': 'Field Worker',
+        'tractor-operator': 'Tractor Operator',
+        'harvester': 'Harvesting Specialist',
+        'irrigation': 'Irrigation Technician',
+        'crop-specialist': 'Crop Specialist',
+        'pesticide-applicator': 'Pesticide Applicator'
+    };
+    return types[type] || type;
+}
+
+function openLaborModal() {
+    $('#labor-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLaborModal() {
+    $('#labor-modal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    $('#labor-requirement-form').reset();
+}
+
+function submitLaborRequirement(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const requirementData = {
+        laborType: formData.get('req-labor-type'),
+        workersCount: formData.get('req-workers-count'),
+        duration: formData.get('req-duration'),
+        wage: formData.get('req-wage'),
+        startDate: formData.get('req-start-date'),
+        location: formData.get('req-location'),
+        description: formData.get('req-description'),
+        contact: formData.get('req-contact')
+    };
+    
+    // Simulate submission
+    showToast('Labor requirement posted successfully!', 'success');
+    closeLaborModal();
+    
+    // You can add actual API call here
+    console.log('Labor requirement:', requirementData);
+}
+
+function contactLabor(phone, name) {
+    if (confirm(`Call ${name} at ${phone}?`)) {
+        window.open(`tel:${phone}`);
+    }
+}
+
+// Equipment Functions
+function initializeEquipmentFeatures() {
+    setupEquipmentEventListeners();
+    loadEquipmentData();
+}
+
+function setupEquipmentEventListeners() {
+    $('#search-equipment')?.addEventListener('click', searchEquipment);
+    $('#post-equipment-ad')?.addEventListener('click', openEquipmentModal);
+    $('#close-equipment-modal')?.addEventListener('click', closeEquipmentModal);
+    $('#equipment-ad-form')?.addEventListener('submit', submitEquipmentAd);
+    
+    // Close modal on backdrop click
+    $('#equipment-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'equipment-modal') {
+            closeEquipmentModal();
+        }
+    });
+}
+
+function searchEquipment() {
+    const equipmentType = $('#equipment-type').value;
+    const category = $('#equipment-category').value;
+    const location = $('#equipment-location').value;
+    
+    showToast('Searching for equipment...', 'success');
+    
+    // Simulate search delay
+    setTimeout(() => {
+        loadEquipmentData(equipmentType, category, location);
+    }, 1000);
+}
+
+function loadEquipmentData(type = 'all', category = 'all', location = 'nearby') {
+    let filteredData = mockEquipmentData;
+    
+    if (type !== 'all') {
+        filteredData = filteredData.filter(equipment => equipment.type === type);
+    }
+    
+    if (category !== 'all') {
+        filteredData = filteredData.filter(equipment => equipment.category === category);
+    }
+    
+    if (location !== 'nearby') {
+        filteredData = filteredData.filter(equipment => 
+            equipment.location.toLowerCase() === location.toLowerCase()
+        );
+    }
+    
+    displayEquipmentResults(filteredData);
+}
+
+function displayEquipmentResults(equipmentData) {
+    const container = $('#equipment-results');
+    
+    if (equipmentData.length === 0) {
+        container.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-tractor" style="font-size: 3rem; color: var(--gray-400); margin-bottom: 1rem;"></i>
+                <h3>No equipment found</h3>
+                <p>Try adjusting your search filters</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = equipmentData.map(equipment => `
+        <div class="equipment-card">
+            <div class="equipment-image">
+                <span>${equipment.image}</span>
+                <span class="equipment-category category-${equipment.category}">
+                    ${equipment.category === 'rent' ? 'For Rent' : 'For Sale'}
+                </span>
+            </div>
+            
+            <div class="equipment-content">
+                <div class="equipment-title">${equipment.title}</div>
+                
+                <div class="equipment-specs">
+                    <div><strong>Brand:</strong> ${equipment.brand}</div>
+                    <div><strong>Year:</strong> ${equipment.year}</div>
+                    <div><strong>Model:</strong> ${equipment.model}</div>
+                    <div><strong>Hours:</strong> ${equipment.hours}</div>
+                </div>
+                
+                <div class="equipment-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>${equipment.location}</span>
+                </div>
+                
+                <div class="equipment-description">${equipment.description}</div>
+                
+                <div class="equipment-footer">
+                    <div class="equipment-price">
+                        ₹${equipment.price.toLocaleString()}
+                        <span class="price-unit">/${equipment.priceType.replace('per-', '')}</span>
+                    </div>
+                    <button class="contact-btn" onclick="contactEquipmentOwner('${equipment.contact}', '${equipment.title}')">
+                        <i class="fas fa-phone"></i>
+                        Contact
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function openEquipmentModal() {
+    $('#equipment-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEquipmentModal() {
+    $('#equipment-modal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    $('#equipment-ad-form').reset();
+}
+
+function submitEquipmentAd(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const adData = {
+        equipmentType: formData.get('ad-equipment-type'),
+        category: formData.get('ad-category'),
+        title: formData.get('ad-title'),
+        brand: formData.get('ad-brand'),
+        model: formData.get('ad-model'),
+        year: formData.get('ad-year'),
+        hours: formData.get('ad-hours'),
+        price: formData.get('ad-price'),
+        priceType: formData.get('ad-price-type'),
+        location: formData.get('ad-location'),
+        description: formData.get('ad-description'),
+        contact: formData.get('ad-contact')
+    };
+    
+    // Simulate submission
+    showToast('Equipment advertisement posted successfully!', 'success');
+    closeEquipmentModal();
+    
+    // You can add actual API call here
+    console.log('Equipment ad:', adData);
+}
+
+function contactEquipmentOwner(phone, title) {
+    if (confirm(`Contact owner of "${title}" at ${phone}?`)) {
+        window.open(`tel:${phone}`);
+    }
+}
+
+// Update the main initialization function
+function initializeApp() {
+    // ... existing initialization code ...
+    
+    // Initialize new features
+    initializeLaborFeatures();
+    initializeEquipmentFeatures();
+    
+    // ... rest of existing code ...
+}
+
+// Update tab switching to handle new tabs
+function switchTab(tabName) {
+    // Hide all panels
+
+    $$('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    
+    // Remove active class from all tabs
+
+    $$('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+    });
+    
+    // Show selected panel
+    const selectedPanel = $(`#${tabName}-panel`);
+    const selectedTab = $(`.tab-btn[data-tab="${tabName}"]`);
+    
+    if (selectedPanel && selectedTab) {
+        selectedPanel.classList.add('active');
+        selectedTab.classList.add('active');
+        selectedTab.setAttribute('aria-selected', 'true');
+        
+        AppState.currentTab = tabName;
+        
+        // Load data for specific tabs
+        if (tabName === 'labor') {
+            loadLaborData();
+        } else if (tabName === 'equipment') {
+            loadEquipmentData();
+        } else if (tabName === 'weather') {
+            loadWeatherData();
+        } else if (tabName === 'market') {
+            loadMarketData();
+        }
+    }
+}
+
+
 // Mock Data
 const mockWeatherData = {
     5: [
