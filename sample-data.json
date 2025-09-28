@@ -268,4 +268,123 @@
       "Proper sanitation and field hygiene"
     ]
   }
+  {
+  "labor": [
+    {
+      "id": 1,
+      "name": "Ramesh Kumar",
+      "skill": "Ploughing & Sowing",
+      "location": "Punjab",
+      "contact": "9876543210",
+      "availability": "Full-time"
+    },
+    {
+      "id": 2,
+      "name": "Sita Devi",
+      "skill": "Harvesting",
+      "location": "Haryana",
+      "contact": "9876501234",
+      "availability": "Seasonal"
+    },
+    {
+      "id": 3,
+      "name": "Mohan Singh",
+      "skill": "Irrigation Management",
+      "location": "Uttar Pradesh",
+      "contact": "9898989898",
+      "availability": "Part-time"
+    },
+    {
+      "id": 4,
+      "name": "Radha Patel",
+      "skill": "Weed Control & Spraying",
+      "location": "Gujarat",
+      "contact": "9123456789",
+      "availability": "Full-time"
+    },
+    {
+      "id": 5,
+      "name": "Kiran Das",
+      "skill": "Crop Harvesting & Packaging",
+      "location": "Bihar",
+      "contact": "9012345678",
+      "availability": "Seasonal"
+    },
+    {
+      "id": 6,
+      "name": "Anjali Sharma",
+      "skill": "Seedling Transplantation",
+      "location": "Madhya Pradesh",
+      "contact": "9567890123",
+      "availability": "Part-time"
+    }
+  ],
+
+  "equipment": [
+    {
+      "id": 1,
+      "name": "Tractor",
+      "brand": "Mahindra",
+      "rent_per_day": 1500,
+      "location": "Uttar Pradesh",
+      "availability": "Available"
+    },
+    {
+      "id": 2,
+      "name": "Rotavator",
+      "brand": "John Deere",
+      "rent_per_day": 800,
+      "location": "Punjab",
+      "availability": "Booked"
+    },
+    {
+      "id": 3,
+      "name": "Seed Drill",
+      "brand": "Sonalika",
+      "rent_per_day": 500,
+      "location": "Haryana",
+      "availability": "Available"
+    },
+    {
+      "id": 4,
+      "name": "Threshing Machine",
+      "brand": "New Holland",
+      "rent_per_day": 1200,
+      "location": "Maharashtra",
+      "availability": "Available"
+    },
+    {
+      "id": 5,
+      "name": "Water Pump",
+      "brand": "Kirloskar",
+      "rent_per_day": 300,
+      "location": "Gujarat",
+      "availability": "Booked"
+    },
+    {
+      "id": 6,
+      "name": "Sprayer",
+      "brand": "Honda",
+      "rent_per_day": 200,
+      "location": "Karnataka",
+      "availability": "Available"
+    },
+    {
+      "id": 7,
+      "name": "Plough",
+      "brand": "Swaraj",
+      "rent_per_day": 400,
+      "location": "Rajasthan",
+      "availability": "Available"
+    },
+    {
+      "id": 8,
+      "name": "Power Tiller",
+      "brand": "Kubota",
+      "rent_per_day": 600,
+      "location": "Tamil Nadu",
+      "availability": "Booked"
+    }
+  ]
+}
 }
