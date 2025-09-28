@@ -92,7 +92,301 @@
                 <i class="fas fa-microphone"></i>
                 <span data-translate="tab.voice">Voice</span>
             </button>
+
+            <!-- Add to your tab navigation after the voice tab -->
+<button class="tab-btn" data-tab="labor" role="tab" aria-selected="false" aria-controls="labor-panel">
+    <i class="fas fa-users"></i>
+    <span data-translate="tab.labor">Labor</span>
+</button>
+<button class="tab-btn" data-tab="equipment" role="tab" aria-selected="false" aria-controls="equipment-panel">
+    <i class="fas fa-tractor"></i>
+    <span data-translate="tab.equipment">Equipment</span>
+</button>
+
+<!-- Add these new tab panels in your main content area -->
+
+<!-- Labor Tab -->
+<div id="labor-panel" class="tab-panel" role="tabpanel" aria-labelledby="labor-tab">
+    <div class="labor-container">
+        <div class="labor-header">
+            <h2 data-translate="labor.title">Contact Agricultural Labor</h2>
+            <p data-translate="labor.subtitle">Find skilled workers for your farming needs</p>
+        </div>
+        
+        <!-- Labor Search -->
+        <div class="labor-search">
+            <div class="search-filters">
+                <select id="labor-type" class="filter-select">
+                    <option value="all">All Labor Types</option>
+                    <option value="field-worker">Field Workers</option>
+                    <option value="tractor-operator">Tractor Operators</option>
+                    <option value="harvester">Harvesting Specialists</option>
+                    <option value="irrigation">Irrigation Technicians</option>
+                    <option value="crop-specialist">Crop Specialists</option>
+                    <option value="pesticide-applicator">Pesticide Applicators</option>
+                </select>
+                
+                <select id="labor-location" class="filter-select">
+                    <option value="nearby">Near Me</option>
+                    <option value="thrissur">Thrissur</option>
+                    <option value="kasargod">Kasargod</option>
+                    <option value="kannur">Kannur</option>
+                    <option value="kottayam">Kottayam</option>
+                    <option value="thalassery">Thalassery</option>
+                </select>
+                
+                <button id="search-labor" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    <span data-translate="labor.search">Search Labor</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Post Labor Requirement -->
+        <div class="post-requirement">
+            <button id="post-labor-need" class="post-btn">
+                <i class="fas fa-plus"></i>
+                <span data-translate="labor.post_requirement">Post Labor Requirement</span>
+            </button>
+        </div>
+        
+        <!-- Labor Listings -->
+        <div id="labor-results" class="labor-results">
+            <!-- Labor cards will be inserted here -->
+        </div>
+        
+        <!-- Labor Requirement Form Modal -->
+        <div id="labor-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 data-translate="labor.post_title">Post Labor Requirement</h3>
+                    <button id="close-labor-modal" class="close-btn">&times;</button>
+                </div>
+                <form id="labor-requirement-form" class="labor-form">
+                    <div class="form-group">
+                        <label for="req-labor-type" data-translate="labor.type">Labor Type</label>
+                        <select id="req-labor-type" required>
+                            <option value="">Select Labor Type</option>
+                            <option value="field-worker">Field Workers</option>
+                            <option value="tractor-operator">Tractor Operators</option>
+                            <option value="harvester">Harvesting Specialists</option>
+                            <option value="irrigation">Irrigation Technicians</option>
+                            <option value="crop-specialist">Crop Specialists</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="req-workers-count" data-translate="labor.workers_needed">Number of Workers</label>
+                            <input type="number" id="req-workers-count" min="1" max="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="req-duration" data-translate="labor.duration">Duration (Days)</label>
+                            <input type="number" id="req-duration" min="1" max="365" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="req-wage" data-translate="labor.daily_wage">Daily Wage (₹)</label>
+                            <input type="number" id="req-wage" min="100" max="2000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="req-start-date" data-translate="labor.start_date">Start Date</label>
+                            <input type="date" id="req-start-date" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="req-location" data-translate="labor.work_location">Work Location</label>
+                        <input type="text" id="req-location" placeholder="Enter farm location" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="req-description" data-translate="labor.description">Work Description</label>
+                        <textarea id="req-description" rows="3" placeholder="Describe the work requirements"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="req-contact" data-translate="labor.contact">Contact Number</label>
+                        <input type="tel" id="req-contact" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-translate="labor.post">Post Requirement</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Equipment Tab -->
+<div id="equipment-panel" class="tab-panel" role="tabpanel" aria-labelledby="equipment-tab">
+    <div class="equipment-container">
+        <div class="equipment-header">
+            <h2 data-translate="equipment.title">Farm Equipment Rental & Sales</h2>
+            <p data-translate="equipment.subtitle">Find tractors, harvesters, and other farming equipment</p>
+        </div>
+        
+        <!-- Equipment Search -->
+        <div class="equipment-search">
+            <div class="search-filters">
+                <select id="equipment-type" class="filter-select">
+                    <option value="all">All Equipment</option>
+                    <option value="tractor">Tractors</option>
+                    <option value="harvester">Harvesters</option>
+                    <option value="plough">Ploughs</option>
+                    <option value="seeder">Seeders</option>
+                    <option value="sprayer">Sprayers</option>
+                    <option value="thresher">Threshers</option>
+                    <option value="cultivator">Cultivators</option>
+                    <option value="irrigation">Irrigation Equipment</option>
+                </select>
+                
+                <select id="equipment-category" class="filter-select">
+                    <option value="all">Rent & Buy</option>
+                    <option value="rent">For Rent</option>
+                    <option value="buy">For Sale</option>
+                </select>
+                
+                <select id="equipment-location" class="filter-select">
+                    <option value="nearby">Near Me</option>
+                    <option value="thrissur">Thrissur</option>
+                    <option value="kasargod">Kasargod</option>
+                    <option value="kannur">Kannur</option>
+                    <option value="kottayam">Kottayam</option>
+                    <option value="thalassery">Thalassery</option>
+                </select>
+                
+                <button id="search-equipment" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    <span data-translate="equipment.search">Search Equipment</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Post Equipment -->
+        <div class="post-equipment">
+            <button id="post-equipment-ad" class="post-btn">
+                <i class="fas fa-plus"></i>
+                <span data-translate="equipment.post_ad">Post Equipment Ad</span>
+            </button>
+        </div>
+        
+        <!-- Equipment Listings -->
+        <div id="equipment-results" class="equipment-results">
+            <!-- Equipment cards will be inserted here -->
+        </div>
+        
+        <!-- Equipment Ad Form Modal -->
+        <div id="equipment-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 data-translate="equipment.post_title">Post Equipment Advertisement</h3>
+                    <button id="close-equipment-modal" class="close-btn">&times;</button>
+                </div>
+                <form id="equipment-ad-form" class="equipment-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ad-equipment-type" data-translate="equipment.type">Equipment Type</label>
+                            <select id="ad-equipment-type" required>
+                                <option value="">Select Equipment</option>
+                                <option value="tractor">Tractor</option>
+                                <option value="harvester">Harvester</option>
+                                <option value="plough">Plough</option>
+                                <option value="seeder">Seeder</option>
+                                <option value="sprayer">Sprayer</option>
+                                <option value="thresher">Thresher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-category" data-translate="equipment.category">Category</label>
+                            <select id="ad-category" required>
+                                <option value="">Select Category</option>
+                                <option value="rent">For Rent</option>
+                                <option value="sale">For Sale</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-title" data-translate="equipment.ad_title">Advertisement Title</label>
+                        <input type="text" id="ad-title" placeholder="e.g., Mahindra 575 DI Tractor for Rent" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ad-brand" data-translate="equipment.brand">Brand</label>
+                            <input type="text" id="ad-brand" placeholder="e.g., Mahindra, John Deere" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-model" data-translate="equipment.model">Model</label>
+                            <input type="text" id="ad-model" placeholder="e.g., 575 DI" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ad-year" data-translate="equipment.year">Year</label>
+                            <input type="number" id="ad-year" min="1990" max="2024" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-hours" data-translate="equipment.hours">Working Hours</label>
+                            <input type="number" id="ad-hours" min="0" placeholder="Total working hours">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ad-price" data-translate="equipment.price">Price (₹)</label>
+                            <input type="number" id="ad-price" min="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-price-type" data-translate="equipment.price_type">Price Type</label>
+                            <select id="ad-price-type" required>
+                                <option value="per-day">Per Day</option>
+                                <option value="per-hour">Per Hour</option>
+                                <option value="per-acre">Per Acre</option>
+                                <option value="fixed">Fixed Price</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-location" data-translate="equipment.location">Location</label>
+                        <input type="text" id="ad-location" placeholder="Enter your location" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-description" data-translate="equipment.description">Description</label>
+                        <textarea id="ad-description" rows="3" placeholder="Describe the equipment condition, features, and terms"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-contact" data-translate="equipment.contact">Contact Number</label>
+                        <input type="tel" id="ad-contact" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ad-images" data-translate="equipment.images">Equipment Images</label>
+                        <input type="file" id="ad-images" accept="image/*" multiple>
+                        <small class="form-help">Upload up to 5 images of your equipment</small>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-translate="equipment.post">Post Advertisement</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
         </nav>
+        
 
         <!-- Main Content Area -->
         <main class="main-content">
@@ -416,9 +710,12 @@
     #787a01,#007f04   /* end color */
 );
 color:#FFFFFF">
-                <p>@Develpoed by Crop coders</p>
-                <!-- <img src="logo.png" class= "logo-cc"alt="logo"> -->
-            </div>
+                <!-- Footer Section -->
+<footer style="color:#ffffff; text-align:center; padding:15px 0; margin-top:20px; font-family:sans-serif;">
+    <p style="margin:0; font-size:50px;">
+        &copy; Crop Coders 1 | SIH 2025. All Rights Reserved.
+    </p>
+</footer>
         </main>
     </div>
 
