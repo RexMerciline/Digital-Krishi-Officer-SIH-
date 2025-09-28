@@ -311,7 +311,6 @@ body {
 }
 
 .tab-panel {
-    display: none;
     flex: 1;
     padding: var(--space-4);
     max-width: 1200px;
