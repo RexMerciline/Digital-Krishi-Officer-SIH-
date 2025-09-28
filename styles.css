@@ -309,16 +309,18 @@ body {
     flex-direction: column;
     position: relative;
 }
-
+.tab-panel{
+    postion:relative;
+    right:528px;
+    top:50px;
+}
 .tab-panel {
+    display: none;
     flex: 1;
     padding: var(--space-4);
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    position: relative;
-    right: 528px;
-    top: 50px;
 }
 
 .tab-panel.active {
